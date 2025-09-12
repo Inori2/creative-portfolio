@@ -1,0 +1,26 @@
+/* Switzer Variable Font */
+@font-face {
+  font-family: Switzer;
+  src: url("./assets/fonts/switzer/Switzer-Variable.ttf");
+  font-display: swap;
+}
+
+/* PP Hatton Bold Italic */
+@font-face {
+  font-family: PP Hatton;
+  src: url("./assets/fonts/pp-hatton/PPHatton-BoldItalic.otf");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: PP Hatton;
+  src: url("./assets/fonts/pp-hatton/PPHatton-MediumItalic.otf");
+  font-display: swap;
+}
+
+@import "tailwindcss";
+
+@theme {
+  --font-primary: "Switzer", sans-serif;
+  --font-secondary: "PP Hatton", sans-serif;
+}
