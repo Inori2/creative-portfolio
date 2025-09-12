@@ -39,6 +39,7 @@ export default function Menu() {
           autoAlpha: 0,
           scale: 0.9,
           y: 10,
+          transformOrigin: "center bottom",
         },
         {
           autoAlpha: 1,
