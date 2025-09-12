@@ -2,8 +2,7 @@ import gsap from "gsap";
 import { ReactLenis } from "lenis/react";
 import { useEffect, useRef } from "react";
 import Preloader from "./Components/Preloader";
-import Menu from "./Components/Menu";
-
+import Navbar from "./Components/Navbar";
 function App() {
   const lenisRef = useRef();
 
@@ -20,8 +19,8 @@ function App() {
   return (
     <>
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
-      <Menu />
       <Preloader />
+      <Navbar />
     </>
   );
 }

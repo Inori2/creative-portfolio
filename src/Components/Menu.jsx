@@ -17,9 +17,11 @@ export default function Menu() {
 
     if (isMenuOpen) {
       tl.to(menuContainer, {
-        height: "400px",
-        paddingTop: "2rem",
+        height: "auto",
+        padding: "1rem",
         duration: 0.3,
+        border: "1px solid rgba(0,0,0,0.1)",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
       });
       tl.fromTo(
         linkRef.current,
@@ -54,8 +56,10 @@ export default function Menu() {
       // Capture the current height and animate from there to 0
       tl.to(menuContainer, {
         height: 0,
-        paddingTop: 0,
+        padding: 0,
         duration: 0.3,
+        border: "0px solid transparent",
+        boxShadow: "0 0px 0px rgba(0,0,0,0)",
       });
     }
   }, [isMenuOpen]);
@@ -78,7 +82,7 @@ export default function Menu() {
     });
   }
   return (
-    <nav className="menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit shadow-sm">
+    <nav className="menu relative p-4 border border-stone-100 bg-white rounded-md min-w-xs h-fit shadow-sm w-full col-span-full lg:col-span-3">
       <div className="logo-container flex justify-between">
         <a
           href="/"
@@ -102,32 +106,38 @@ export default function Menu() {
           ></div>
         </div>
       </div>
-      <div className="overflow-hidden" ref={menuContainerRef}>
-        {["Index", "Works", "Process", "Services"].map((item, i) => (
-          <a
-            href={`#${item.toLowerCase()}`}
-            key={i}
-            ref={(el) => (linkRef.current[i] = el)}
-            onMouseEnter={onLinkHover}
-            onMouseLeave={onLinkLeave}
-            className="block"
-          >
-            <div className="overflow-hidden h-[2.5rem] mb-4">
-              <div className="menu-item flex flex-col w-full">
-                <span className="font-primary font-bold text-[2rem]">
-                  {item.toUpperCase()}
-                </span>
-                <span className="font-primary font-bold text-[2rem]">
-                  {item.toUpperCase()}
-                </span>
+      <div
+        className="overflow-hidden absolute left-0 top-full mt-4 w-full border border-stone-100 bg-white rounded-md flex flex-col justify-between gap-20"
+        ref={menuContainerRef}
+      >
+        {" "}
+        <div className="flex flex-col h-fit">
+          {["Index", "Works", "Process", "Services"].map((item, i) => (
+            <a
+              href={`#${item.toLowerCase()}`}
+              key={i}
+              ref={(el) => (linkRef.current[i] = el)}
+              onMouseEnter={onLinkHover}
+              onMouseLeave={onLinkLeave}
+              className="block"
+            >
+              <div className="overflow-hidden h-[2.5rem] mb-4">
+                <div className="menu-item flex flex-col w-full">
+                  <span className="font-primary font-bold text-[2rem]">
+                    {item.toUpperCase()}
+                  </span>
+                  <span className="font-primary font-bold text-[2rem]">
+                    {item.toUpperCase()}
+                  </span>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))}
+        </div>
         <a href="mailto:trannhatsang2000@gmail.com">
           <button
             ref={buttonRef}
-            className="mt-20 py-4 border bg-stone-950 rounded-md font-primary font-medium text-stone-50 hover:bg-stone-800 hover:text-stone-50 transition-colors duration-300 w-full text-center text-xl cursor-pointer"
+            className="mt-auto py-4 border bg-stone-950 rounded-md font-primary font-medium text-stone-50 hover:bg-stone-800 hover:text-stone-50 transition-colors duration-300 w-full text-center text-xl cursor-pointer"
             onMouseDown={(e) =>
               gsap.to(e.currentTarget, {
                 scale: 0.95,
