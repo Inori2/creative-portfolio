@@ -8,26 +8,25 @@ export default function Menu() {
   const linkRef = useRef([]);
   const buttonRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // internal state
+
   useEffect(() => {
+    const menuContainer = menuContainerRef.current;
+    if (!menuContainer) return;
+
+    const tl = gsap.timeline();
+
     if (isMenuOpen) {
-      // Expand down
-      gsap.to(menuContainerRef.current, {
-        height: "auto",
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out",
-        display: "block", // ensures it's visible
+      tl.to(menuContainer, {
+        height: "400px",
+        paddingTop: "2rem",
+        duration: 0.3,
       });
     } else {
-      // Collapse up
-      gsap.to(menuContainerRef.current, {
+      // Capture the current height and animate from there to 0
+      tl.to(menuContainer, {
         height: 0,
-        opacity: 0,
-        duration: 0.4,
-        ease: "power3.inOut",
-        onComplete: () => {
-          gsap.set(menuContainerRef.current, { display: "none" }); // fully hide after collapse
-        },
+        paddingTop: 0,
+        duration: 0.3,
       });
     }
   }, [isMenuOpen]);
@@ -50,11 +49,7 @@ export default function Menu() {
     });
   }
   return (
-    <nav
-      className={`menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit ${
-        isMenuOpen ? "open" : ""
-      }`}
-    >
+    <nav className="menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit">
       <div className="logo-container flex justify-between">
         <a
           href="/"
@@ -78,7 +73,7 @@ export default function Menu() {
           ></div>
         </div>
       </div>
-      <div className="mt-8 overflow-hidden opacity-0" ref={menuContainerRef}>
+      <div className="overflow-hidden" ref={menuContainerRef}>
         {["Index", "Works", "Process", "Services"].map((item, i) => (
           <a
             href={`#${item.toLowerCase()}`}
@@ -89,7 +84,7 @@ export default function Menu() {
             className="block"
           >
             <div className="overflow-hidden h-[2.5rem] mb-4">
-              <div className="menu-item flex flex-col gap-0 w-full">
+              <div className="menu-item flex flex-col w-full">
                 <span className="font-primary font-bold text-[2rem]">
                   {item.toUpperCase()}
                 </span>
