@@ -7,7 +7,7 @@ export default function Menu() {
   const menuContainerRef = useRef(null);
   const linkRef = useRef([]);
   const buttonRef = useRef(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // internal state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const menuContainer = menuContainerRef.current;
@@ -21,6 +21,34 @@ export default function Menu() {
         paddingTop: "2rem",
         duration: 0.3,
       });
+      tl.fromTo(
+        linkRef.current,
+        { autoAlpha: 0, y: -20 }, // start invisible and slightly above
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "power3.out",
+          stagger: 0.1, // <--- staggered timing
+        },
+        "-=0.1" // start just before menu fully opens
+      );
+      tl.fromTo(
+        buttonRef.current,
+        {
+          autoAlpha: 0,
+          scale: 0.9,
+          y: 10,
+        },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "expo.out",
+        },
+        "-=0.5"
+      );
     } else {
       // Capture the current height and animate from there to 0
       tl.to(menuContainer, {
