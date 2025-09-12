@@ -1,15 +1,54 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 gsap.registerPlugin(SplitText);
 
 export default function Menu() {
-  const [isMounted, setIsMounted] = useState(false);
+  const menuContainerRef = useRef(null);
+  const linkRef = useRef([]);
+  const buttonRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // internal state
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (isMenuOpen) {
+      // Expand down
+      gsap.to(menuContainerRef.current, {
+        height: "auto",
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out",
+        display: "block", // ensures it's visible
+      });
+    } else {
+      // Collapse up
+      gsap.to(menuContainerRef.current, {
+        height: 0,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.inOut",
+        onComplete: () => {
+          gsap.set(menuContainerRef.current, { display: "none" }); // fully hide after collapse
+        },
+      });
+    }
+  }, [isMenuOpen]);
 
+  // Runs when user hovers a link
+  function onLinkHover(e) {
+    gsap.to(e.currentTarget.querySelector(".menu-item"), {
+      yPercent: -50,
+      duration: 0.5,
+      ease: "power3.out",
+    });
+  }
+
+  // Runs when user stops hovering
+  function onLinkLeave(e) {
+    gsap.to(e.currentTarget.querySelector(".menu-item"), {
+      yPercent: 0,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  }
   return (
     <nav
       className={`menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit ${
@@ -18,7 +57,7 @@ export default function Menu() {
     >
       <div className="logo-container flex justify-between">
         <a
-          href="#"
+          href="/"
           className="logo text-right font-primary font-bold text-stone-950 leading-none"
         >
           Made by© <br /> Sang
@@ -39,11 +78,56 @@ export default function Menu() {
           ></div>
         </div>
       </div>
-      <div className="">
-        <a href="#hero">
-          <div>
-            <span>Index</span>
-          </div>
+      <div className="mt-8 overflow-hidden opacity-0" ref={menuContainerRef}>
+        {["Index", "Works", "Process", "Services"].map((item, i) => (
+          <a
+            href={`#${item.toLowerCase()}`}
+            key={i}
+            ref={(el) => (linkRef.current[i] = el)}
+            onMouseEnter={onLinkHover}
+            onMouseLeave={onLinkLeave}
+            className="block"
+          >
+            <div className="overflow-hidden h-[2.5rem] mb-4">
+              <div className="menu-item flex flex-col gap-0 w-full">
+                <span className="font-primary font-bold text-[2rem]">
+                  {item.toUpperCase()}
+                </span>
+                <span className="font-primary font-bold text-[2rem]">
+                  {item.toUpperCase()}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+        <a href="mailto:trannhatsang2000@gmail.com">
+          <button
+            ref={buttonRef}
+            className="mt-20 py-4 border bg-stone-950 rounded-md font-primary font-medium text-stone-50 hover:bg-stone-800 hover:text-stone-50 transition-colors duration-300 w-full text-center text-xl cursor-pointer"
+            onMouseDown={(e) =>
+              gsap.to(e.currentTarget, {
+                scale: 0.95,
+                duration: 0.15,
+                ease: "power3.out",
+              })
+            }
+            onMouseUp={(e) =>
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                duration: 0.15,
+                ease: "power3.inOut",
+              })
+            }
+            onMouseLeave={(e) =>
+              gsap.to(e.currentTarget, {
+                scale: 1,
+                duration: 0.15,
+                ease: "power3.inOut",
+              })
+            }
+          >
+            Get in touch
+          </button>
         </a>
       </div>
     </nav>
