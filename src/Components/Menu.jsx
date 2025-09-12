@@ -49,7 +49,7 @@ export default function Menu() {
     });
   }
   return (
-    <nav className="menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit">
+    <nav className="menu p-4 border border-stone-100 bg-[#fff] rounded-md min-w-xs max-w-[400px] h-fit shadow-sm">
       <div className="logo-container flex justify-between">
         <a
           href="/"
