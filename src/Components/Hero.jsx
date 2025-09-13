@@ -14,21 +14,44 @@ export default function Hero({ isPreloaderDone }) {
   const paragraphRef = useRef(null);
   const indicateRef = useRef(null);
   const sectionRef = useRef(null);
-  const hoverHeading = useRef(null);
-  const setRef = (el) => {
-    if (el) {
-      hoverHeading.current = el;
-      if (!headingRef.current.includes(el)) {
-        headingRef.current.push(el);
-      }
+  const hoverRef = useRef(null);
+
+  const hoverAnim = useRef(null); // GSAP animation instance
+  const reverseTimeout = useRef(null);
+  function handleMouseEnter() {
+    if (reverseTimeout.current) {
+      clearTimeout(reverseTimeout.current); // Cancel any scheduled reverse
     }
-  };
+    // Create the animation only once
+    if (!hoverAnim.current) {
+      hoverAnim.current = gsap.to(hoverRef.current, {
+        scrambleText: {
+          text: "engineer".toUpperCase(),
+          chars: "upperCase",
+          speed: 1,
+        },
+        duration: 0.5,
+        paused: true, // start paused
+      });
+    }
+    hoverAnim.current.play(); // Play forward
+  }
+
+  function handleMouseLeave() {
+    if (hoverAnim.current) {
+      // Delay before reversing to prevent accidental flickers
+      reverseTimeout.current = setTimeout(() => {
+        hoverAnim.current.reverse();
+      }, 150); // <-- tweak this delay (150ms feels natural)
+    }
+  }
+
   //Animation section
   useEffect(() => {
     if (!isPreloaderDone) return;
 
     const ctx = gsap.context(() => {
-      if (headingRef.current.length > 0) {
+      if (headingRef.current.length > 0 && hoverRef.current) {
         gsap.from(headingRef.current, {
           y: 150,
           autoAlpha: 0,
@@ -95,7 +118,12 @@ export default function Hero({ isPreloaderDone }) {
               <div className="w-full w-max-[1024px] overflow-hidden">
                 <h1
                   className="font-primary font-bold text-7xl md:text-9xl tracking-tight md:leading-30 text-center md:text-right"
-                  ref={setRef}
+                  ref={(el) => {
+                    hoverRef.current = el;
+                    addToHeadingRefs(el);
+                  }}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {"designer".toUpperCase()}
                 </h1>
