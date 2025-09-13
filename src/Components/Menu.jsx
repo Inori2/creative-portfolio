@@ -10,58 +10,79 @@ const Menu = forwardRef((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const menuContainer = menuContainerRef.current;
-    if (!menuContainer) return;
+    const ctx = gsap.context(() => {
+      const menuContainer = menuContainerRef.current;
+      if (!menuContainer) return;
 
-    const tl = gsap.timeline();
+      const tl = gsap.timeline();
 
-    if (isMenuOpen) {
-      tl.to(menuContainer, {
-        height: "auto",
-        padding: "1rem",
-        duration: 0.3,
-        border: "1px solid rgba(0,0,0,0.1)",
-        boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-      });
-      tl.fromTo(
-        linkRef.current,
-        { autoAlpha: 0, y: -20 }, // start invisible and slightly above
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "power3.out",
-          stagger: 0.1, // <--- staggered timing
-        },
-        "-=0.1" // start just before menu fully opens
-      );
-      tl.fromTo(
-        buttonRef.current,
-        {
+      if (isMenuOpen) {
+        const naturalHeight = menuContainer.scrollHeight;
+        tl.fromTo(
+          menuContainer,
+          { height: 0 },
+          {
+            height: naturalHeight,
+            duration: 0.4,
+            border: "1px solid rgba(0,0,0,0.1)",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          }
+        ).set(menuContainer, { height: "auto" });
+        tl.fromTo(
+          linkRef.current,
+          { autoAlpha: 0, y: -20 }, // start invisible and slightly above
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            ease: "power3.out",
+            stagger: 0.1, // <--- staggered timing
+          },
+          "-=0.1" // start just before menu fully opens
+        );
+        tl.fromTo(
+          buttonRef.current,
+          {
+            autoAlpha: 0,
+            scale: 0.9,
+            y: 10,
+            transformOrigin: "center bottom",
+          },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.4,
+            ease: "expo.out",
+          },
+          "-=0.5"
+        );
+      } else {
+        const currentHeight = menuContainer.offsetHeight;
+
+        // Freeze current height to prevent jump
+        gsap.set(menuContainer, { height: currentHeight, overflow: "hidden" });
+
+        // Step 1: Fade out links and button first
+        tl.to([...linkRef.current, buttonRef.current], {
           autoAlpha: 0,
-          scale: 0.9,
-          y: 10,
-          transformOrigin: "center bottom",
-        },
-        {
-          autoAlpha: 1,
-          scale: 1,
-          y: 0,
+          y: -40,
+          stagger: 0.05,
           duration: 0.4,
-          ease: "expo.out",
-        },
-        "-=0.5"
-      );
-    } else {
-      // Capture the current height and animate from there to 0
-      tl.to(menuContainer, {
-        height: 0,
-        padding: 0,
-        duration: 0.3,
-        border: "0px solid transparent",
-        boxShadow: "0 0px 0px rgba(0,0,0,0)",
-      });
-    }
+          ease: "power3.in",
+        })
+
+          // Step 2: Collapse the container height
+          .to(menuContainer, {
+            height: 0,
+            duration: 0.5,
+            ease: "power3.inOut",
+            border: "0px solid transparent",
+            boxShadow: "0 0px 0px rgba(0,0,0,0)",
+          }); // small overlap to make it feel snappier
+      }
+    }, menuContainerRef);
+    return () => ctx.revert();
   }, [isMenuOpen]);
 
   // Runs when user hovers a link
@@ -113,7 +134,7 @@ const Menu = forwardRef((props, ref) => {
         className="overflow-hidden absolute left-0 top-full mt-4 w-full border border-stone-100 bg-white rounded-md flex flex-col justify-between gap-20"
         ref={menuContainerRef}
       >
-        <div className="flex flex-col h-fit">
+        <div className="flex flex-col h-fit px-4 py-4">
           {["Index", "Works", "Process", "Services"].map((item, i) => (
             <a
               href={`#${item.toLowerCase()}`}
@@ -136,7 +157,7 @@ const Menu = forwardRef((props, ref) => {
             </a>
           ))}
         </div>
-        <a href="mailto:trannhatsang2000@gmail.com">
+        <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
           <button
             ref={buttonRef}
             className="mt-auto py-4 border bg-stone-950 rounded-md font-primary font-medium text-stone-50 hover:bg-stone-800 hover:text-stone-50 transition-colors duration-300 w-full text-center text-xl cursor-pointer"

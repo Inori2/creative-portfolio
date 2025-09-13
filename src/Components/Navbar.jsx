@@ -5,12 +5,12 @@ gsap.registerPlugin(SplitText);
 
 import Menu from "./Menu";
 
-export default function Navbar() {
+export default function Navbar({ isPreloaderDone }) {
   const navbarRef = useRef(null);
   const textRef1 = useRef(null);
   const textRef2 = useRef(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [isPreloaderDone]);
   return (
     <>
       <div className="navbar fixed w-screen p-5 grid grid-cols-9 gap-4 lg:gap-8 justify-center items-center overflow-visible h-[106px] z-49">
