@@ -24,3 +24,9 @@
   --font-primary: "Switzer", sans-serif;
   --font-secondary: "PP Hatton", sans-serif;
 }
+
+@layer base {
+  ::selection {
+    @apply bg-rose-600 text-rose-50;
+  }
+}

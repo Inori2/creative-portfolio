@@ -59,17 +59,17 @@ const Menu = forwardRef((props, ref) => {
       {
         autoAlpha: 0,
         scale: 0.95,
-        y: -40,
+        y: 40,
       },
       {
         autoAlpha: 1,
         scale: 1,
         y: 0,
-        duration: 0.1,
+        duration: 0.5,
         transformOrigin: "center bottom",
-        ease: "expo.out",
+        ease: "power1.out",
       },
-      "-=0.2"
+      "-=0.1"
     );
 
     // Store timeline
