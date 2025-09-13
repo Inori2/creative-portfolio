@@ -24,8 +24,9 @@ const Menu = forwardRef((props, ref) => {
           {
             height: naturalHeight,
             duration: 0.4,
-            border: "1px solid rgba(0,0,0,0.1)",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+            border: "1px solid rgb(0 0 0, 0.075)",
+            boxShadow:
+              "0px 1px 0px rgb(0 0 0 / 0.075), 0px 1px 1px rgb(0 0 0 / 0.075), 0px 2px 2px rgb(0 0 0 / 0.075)",
           }
         ).set(menuContainer, { height: "auto" });
         tl.fromTo(
@@ -78,7 +79,8 @@ const Menu = forwardRef((props, ref) => {
             duration: 0.5,
             ease: "power3.inOut",
             border: "0px solid transparent",
-            boxShadow: "0 0px 0px rgba(0,0,0,0)",
+            boxShadow:
+              "0px 1px 0px rgb(0 0 0 / 0), 0px 1px 1px rgb(0 0 0 / 0), 0px 2px 2px rgb(0 0 0 / 0)",
           }); // small overlap to make it feel snappier
       }
     }, menuContainerRef);
