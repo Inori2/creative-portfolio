@@ -33,7 +33,7 @@ const Menu = forwardRef((props, ref) => {
       menuContainer,
       {
         height: naturalHeight,
-        duration: 0.1,
+        duration: 0.3,
         boxShadow:
           "0px 1px 0px rgb(0 0 0 / 0.075), 0px 1px 1px rgb(0 0 0 / 0.075), 0px 3px 3px rgb(0 0 0 / 0.075)",
       },
@@ -65,7 +65,7 @@ const Menu = forwardRef((props, ref) => {
         autoAlpha: 1,
         scale: 1,
         y: 0,
-        duration: 0.5,
+        duration: 0.3,
         transformOrigin: "center bottom",
         ease: "power1.out",
       },
