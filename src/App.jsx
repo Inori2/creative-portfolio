@@ -20,6 +20,7 @@ function App() {
   return (
     <>
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
+      <Preloader setIsPreloaderDone={setIsPreloaderDone} />
       <Navbar isPreloaderDone={isPreloaderDone} />
     </>
   );

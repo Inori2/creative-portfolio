@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { useRef, useEffect, useState } from "react";
 
-function Preloader({ onComplete }) {
+function Preloader({ setIsPreloaderDone }) {
   const [isLoading, setIsLoading] = useState(true);
   const preloaderRef = useRef(null);
 
@@ -10,7 +10,10 @@ function Preloader({ onComplete }) {
       const boxes = gsap.utils.toArray(".img-container");
 
       const tl = gsap.timeline({
-        onComplete: () => setIsLoading(false),
+        onComplete: () => {
+          setIsLoading(false);
+          setIsPreloaderDone(true);
+        },
       });
 
       // Animate the reveal by expanding the container
@@ -32,16 +35,21 @@ function Preloader({ onComplete }) {
           ease: "power4.inOut",
           delay: 0.01, // small pause before closing
         })
-        .to(preloaderRef.current, {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.inOut",
-          pointerEvents: "none", // prevent blocking clicks while fading
-        });
+        .to(
+          preloaderRef.current,
+          {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.inOut",
+            pointerEvents: "none",
+            onStart: () => setIsPreloaderDone(true),
+          },
+          "-=0.2"
+        );
     }, preloaderRef);
 
     return () => ctx.revert();
-  }, [onComplete]);
+  }, [setIsPreloaderDone]);
 
   return (
     <section
