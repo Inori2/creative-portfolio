@@ -1,9 +1,9 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef } from "react";
 gsap.registerPlugin(SplitText);
 
-export default function Menu() {
+const Menu = forwardRef((props, ref) => {
   const menuContainerRef = useRef(null);
   const linkRef = useRef([]);
   const buttonRef = useRef(null);
@@ -82,7 +82,10 @@ export default function Menu() {
     });
   }
   return (
-    <nav className="menu relative p-4 border border-stone-100 bg-white rounded-md min-w-xs h-fit shadow-sm w-full col-span-full lg:col-span-3">
+    <nav
+      className="menu relative p-4 border border-stone-100 bg-white rounded-md min-w-xs h-fit shadow-sm w-full col-span-full lg:col-span-3"
+      ref={ref}
+    >
       <div className="logo-container flex justify-between">
         <a
           href="/"
@@ -110,7 +113,6 @@ export default function Menu() {
         className="overflow-hidden absolute left-0 top-full mt-4 w-full border border-stone-100 bg-white rounded-md flex flex-col justify-between gap-20"
         ref={menuContainerRef}
       >
-        {" "}
         <div className="flex flex-col h-fit">
           {["Index", "Works", "Process", "Services"].map((item, i) => (
             <a
@@ -166,4 +168,6 @@ export default function Menu() {
       </div>
     </nav>
   );
-}
+});
+
+export default Menu;
