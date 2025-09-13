@@ -1,9 +1,10 @@
 import gsap from "gsap";
 import { ReactLenis } from "lenis/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Preloader from "./Components/Preloader";
 import Navbar from "./Components/Navbar";
 function App() {
+  const [isPreloaderDone, setIsPreloaderDone] = useState(false);
   const lenisRef = useRef();
 
   useEffect(() => {
@@ -19,8 +20,8 @@ function App() {
   return (
     <>
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
-      <Preloader />
-      <Navbar />
+      <Preloader onComplete={() => setIsPreloaderDone(true)} />
+      <Navbar isPreloaderDone={isPreloaderDone} />
     </>
   );
 }

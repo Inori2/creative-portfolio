@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { useRef, useEffect, useState } from "react";
 
-function Preloader() {
+function Preloader({ onComplete }) {
   const [isLoading, setIsLoading] = useState(true);
   const preloaderRef = useRef(null);
 
@@ -41,7 +41,7 @@ function Preloader() {
     }, preloaderRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [onComplete]);
 
   return (
     <section
