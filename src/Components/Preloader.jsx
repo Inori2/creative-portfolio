@@ -6,6 +6,19 @@ function Preloader({ setIsPreloaderDone }) {
   const preloaderRef = useRef(null);
 
   useEffect(() => {
+    // Lock body scroll when loading
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const boxes = gsap.utils.toArray(".img-container");
 
@@ -53,7 +66,7 @@ function Preloader({ setIsPreloaderDone }) {
 
   return (
     <section
-      className="preloader w-screen h-screen bg-stone-50 flex justify-center items-center absolute top-0 left-0 z-50 select-none"
+      className="preloader w-screen h-screen bg-stone-50 flex justify-center items-center fixed top-0 left-0 z-50 select-none"
       ref={preloaderRef}
     >
       {[1, 2, 3, 4, 5].map((num) => (

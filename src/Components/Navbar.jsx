@@ -86,44 +86,44 @@ export default function Navbar({ isPreloaderDone }) {
       {/* keep opacity-0 CSS class as a double-safety to prevent initial flash
           (GSAP.set will manage it, but class helps before JS runs) */}
       <div
-        className="navbar fixed w-screen p-5 grid grid-cols-9 gap-4 lg:gap-8 justify-center items-center overflow-visible h-[106px] z-49 opacity-0"
+        className="navbar fixed w-screen p-5 grid grid-cols-9 gap-4 lg:gap-8 justify-center items-center overflow-visible h-fit z-49 bg-transparent"
         ref={navbarContainer}
       >
         <div className="hidden md:block col-span-3">
-          <span className="block overflow-hidden">
-            <div
+          <div className="block overflow-hidden mix-blend-difference">
+            <span
               className="block font-primary text-base text-stone-700 font-semibold"
               ref={(el) => (topTextRefs.current[0] = el)}
             >
               Based in Vietnam
-            </div>
-          </span>
-          <span className="block overflow-hidden">
-            <div
+            </span>
+          </div>
+          <div className="block overflow-hidden mix-blend-difference">
+            <span
               className="block font-primary text-base text-stone-400 font-semibold"
               ref={(el) => (bottomTextRefs.current[0] = el)}
             >
               Working globally
-            </div>
-          </span>
+            </span>
+          </div>
         </div>
         <div className="hidden md:block col-span-3">
-          <span className="block overflow-hidden">
-            <div
+          <div className="block overflow-hidden mix-blend-difference">
+            <span
               className="block font-primary text-base text-stone-700 font-semibold"
               ref={(el) => (topTextRefs.current[1] = el)}
             >
               Freelance availability
-            </div>
-          </span>
-          <span className="block overflow-hidden">
-            <div
+            </span>
+          </div>
+          <div className="block overflow-hidden mix-blend-difference">
+            <span
               className="block font-primary text-base text-stone-400 font-semibold"
               ref={(el) => (bottomTextRefs.current[1] = el)}
             >
               Open for collaboration
-            </div>
-          </span>
+            </span>
+          </div>
         </div>
         <Menu ref={menuRef} />
       </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Preloader from "./Components/Preloader";
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
+import Showreel from "./Components/Showreel";
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
   const lenisRef = useRef();
@@ -24,6 +25,7 @@ function App() {
       <Preloader setIsPreloaderDone={setIsPreloaderDone} />
       <Navbar isPreloaderDone={isPreloaderDone} />
       <Hero isPreloaderDone={isPreloaderDone} />
+      <Showreel />
     </>
   );
 }
