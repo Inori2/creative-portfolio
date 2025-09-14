@@ -47,11 +47,12 @@ export default function Showreel({ isPreloaderDone }) {
             translateY: "-90vh",
           });
         } else if (desktop) {
+          const baseY = -55;
           // Desktop settings - WITH SCALE
           gsap.set(videoWrapperRef.current, {
             scale: 0.35,
             transformOrigin: "top right",
-            translateY: "-55vh",
+            translateY: `${baseY}vh`,
           });
           gsap.to(videoWrapperRef.current, {
             y: "0vh",
@@ -59,11 +60,36 @@ export default function Showreel({ isPreloaderDone }) {
             scrollTrigger: {
               trigger: videoScrollRef.current,
               start: "top-=200 center+=200",
-              end: "center center+=200",
+              end: "center+=200 center+=200",
               scrub: true,
               markers: true,
             },
           });
+          const handleMouseMove = (e) => {
+            const windowCenter = window.innerHeight / 2;
+            const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
+
+            const maxOffset = 5; // move down limit
+            const minOffset = -38; // move up limit
+
+            const clampedOffset = Math.max(
+              minOffset,
+              Math.min(rawOffset, maxOffset)
+            );
+
+            gsap.to(videoWrapperRef.current, {
+              yPercent: clampedOffset, // only Y changes
+              duration: 0.4,
+              ease: "power3.out",
+            });
+          };
+
+          window.addEventListener("mousemove", handleMouseMove);
+
+          // Cleanup
+          return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+          };
         }
       }
     );
@@ -86,13 +112,13 @@ export default function Showreel({ isPreloaderDone }) {
 
   return (
     <section ref={showcaseRef}>
-      <div className="bg-stone-50 h-screen w-screen p-5 relative">
+      <div className="bg-stone-50 h-screen w-screen p-5 relative overflow-visible">
         <div
           className="video-preview relative overflow-visible w-full h-full rounded-2xl"
           ref={videoScrollRef}
         >
           <div
-            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-4xl aspect-video"
+            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-4xl"
             ref={videoWrapperRef}
           >
             {/* Video */}
