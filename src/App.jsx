@@ -26,6 +26,7 @@ function App() {
       <Navbar isPreloaderDone={isPreloaderDone} />
       <Hero isPreloaderDone={isPreloaderDone} />
       <Showreel isPreloaderDone={isPreloaderDone} />
+      <div className="h-screen bg-stone-950 w-screen">1</div>
     </>
   );
 }

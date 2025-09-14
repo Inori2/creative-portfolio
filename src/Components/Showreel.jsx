@@ -12,8 +12,7 @@ export default function Showreel({ isPreloaderDone }) {
   const showcaseRef = useRef(null);
   const videoWrapperRef = useRef(null);
   const videoScrollRef = useRef(null);
-
-  const mouse = useMousePosition();
+  const videoContainerRef = useRef(null);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -24,6 +23,7 @@ export default function Showreel({ isPreloaderDone }) {
 
   useEffect(() => {
     const mm = gsap.matchMedia();
+    let mouseTrackingEnabled = true;
 
     mm.add(
       {
@@ -60,36 +60,16 @@ export default function Showreel({ isPreloaderDone }) {
             scrollTrigger: {
               trigger: videoScrollRef.current,
               start: "top-=200 center+=200",
-              end: "center+=200 center+=200",
+              end: "center center+=200",
               scrub: true,
-              markers: true,
+              snap: {
+                snapTo: 1,
+                duration: { min: 0.2, max: 0.8 },
+                delay: 0.2,
+                ease: "power1.inOut",
+              },
             },
           });
-          const handleMouseMove = (e) => {
-            const windowCenter = window.innerHeight / 2;
-            const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
-
-            const maxOffset = 5; // move down limit
-            const minOffset = -38; // move up limit
-
-            const clampedOffset = Math.max(
-              minOffset,
-              Math.min(rawOffset, maxOffset)
-            );
-
-            gsap.to(videoWrapperRef.current, {
-              yPercent: clampedOffset, // only Y changes
-              duration: 0.4,
-              ease: "power3.out",
-            });
-          };
-
-          window.addEventListener("mousemove", handleMouseMove);
-
-          // Cleanup
-          return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-          };
         }
       }
     );
@@ -112,7 +92,10 @@ export default function Showreel({ isPreloaderDone }) {
 
   return (
     <section ref={showcaseRef}>
-      <div className="bg-stone-50 h-screen w-screen p-5 relative overflow-visible">
+      <div
+        className="bg-stone-50 h-screen w-screen p-5 relative overflow-visible"
+        ref={videoContainerRef}
+      >
         <div
           className="video-preview relative overflow-visible w-full h-full rounded-2xl"
           ref={videoScrollRef}
