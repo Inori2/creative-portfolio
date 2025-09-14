@@ -97,14 +97,14 @@ export default function Hero({ isPreloaderDone }) {
       <section id="Index" className="z-10">
         <div className="bg-stone-50 w-screen h-screen flex flex-col px-5">
           {/* Main empty space */}
-          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-100 md:pt-80 lg:pt-auto lg:pb-auto mb-auto">
+          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-100 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
             <div className="md:col-span-full lg:col-span-8 xl:col-span-6 text-center md:text-left">
               <div className="w-full overflow-hidden">
                 <span
-                  className="font-secondary text-xl md:text-l font-bold tracking-normal pl-3"
+                  className="font-secondary text-xl md:text-l font-bold tracking-wide pl-3"
                   ref={addToHeadingRefs}
                 >
-                  A Ordinary
+                  Just An Ordinary
                 </span>
               </div>
               <div className="w-full overflow-hidden">

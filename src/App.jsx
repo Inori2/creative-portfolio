@@ -25,7 +25,7 @@ function App() {
       <Preloader setIsPreloaderDone={setIsPreloaderDone} />
       <Navbar isPreloaderDone={isPreloaderDone} />
       <Hero isPreloaderDone={isPreloaderDone} />
-      <Showreel />
+      <Showreel isPreloaderDone={isPreloaderDone} />
     </>
   );
 }
