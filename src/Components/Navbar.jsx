@@ -83,14 +83,12 @@ export default function Navbar({ isPreloaderDone }) {
 
   return (
     <>
-      {/* keep opacity-0 CSS class as a double-safety to prevent initial flash
-          (GSAP.set will manage it, but class helps before JS runs) */}
       <div
         className="navbar fixed w-screen p-5 grid grid-cols-9 gap-4 lg:gap-8 justify-center items-center overflow-visible h-fit z-49 bg-transparent"
         ref={navbarContainer}
       >
         <div className="hidden md:block col-span-3">
-          <div className="block overflow-hidden mix-blend-difference">
+          <div className="block overflow-hidden">
             <span
               className="block font-primary text-base text-stone-700 font-semibold"
               ref={(el) => (topTextRefs.current[0] = el)}
@@ -98,7 +96,7 @@ export default function Navbar({ isPreloaderDone }) {
               Based in Vietnam
             </span>
           </div>
-          <div className="block overflow-hidden mix-blend-difference">
+          <div className="block overflow-hidden">
             <span
               className="block font-primary text-base text-stone-400 font-semibold"
               ref={(el) => (bottomTextRefs.current[0] = el)}
@@ -108,7 +106,7 @@ export default function Navbar({ isPreloaderDone }) {
           </div>
         </div>
         <div className="hidden md:block col-span-3">
-          <div className="block overflow-hidden mix-blend-difference">
+          <div className="block overflow-hidden">
             <span
               className="block font-primary text-base text-stone-700 font-semibold"
               ref={(el) => (topTextRefs.current[1] = el)}

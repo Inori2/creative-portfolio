@@ -105,13 +105,13 @@ const Menu = forwardRef((props, ref) => {
 
   return (
     <nav
-      className="menu relative p-4 border border-stone-100 bg-white rounded-md min-w-xs h-fit shadow-sm w-full col-span-full md:col-span-3"
+      className="menu relative p-4 border bg-stone-950 rounded-md min-w-xs h-fit shadow-sm w-full col-span-full md:col-span-3"
       ref={ref}
     >
       <div className="logo-container flex justify-between">
         <a
           href="/"
-          className="logo text-right font-primary font-bold text-stone-950 leading-none"
+          className="logo text-right font-primary font-bold text-stone-50 leading-none"
         >
           Made by© <br /> Sang
         </a>
@@ -120,19 +120,19 @@ const Menu = forwardRef((props, ref) => {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <div
-            className={`w-6 h-0.5 bg-stone-950 my-1 transition-all origin-center duration-300 ${
+            className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
               isMenuOpen ? "rotate-45 translate-y-[6px]" : ""
             }`}
           ></div>
           <div
-            className={`w-6 h-0.5 bg-stone-950 my-1 transition-all origin-center duration-300 ${
+            className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
               isMenuOpen ? "-rotate-45 -translate-y-[4px]" : ""
             }`}
           ></div>
         </div>
       </div>
       <div
-        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-white rounded-md flex flex-col justify-between gap-20 border-0 shadow-none border-stone-200"
+        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-md flex flex-col justify-between gap-20 border-0 shadow-none"
         ref={menuContainerRef}
       >
         <div className="flex flex-col h-fit px-4 py-4">
@@ -147,10 +147,10 @@ const Menu = forwardRef((props, ref) => {
             >
               <div className="overflow-hidden h-[2.5rem] mb-4">
                 <div className="menu-item flex flex-col w-full">
-                  <span className="font-primary font-bold text-[2rem]">
+                  <span className="font-primary font-bold text-[2rem] text-stone-50">
                     {item.toUpperCase()}
                   </span>
-                  <span className="font-primary font-bold text-[2rem]">
+                  <span className="font-primary font-bold text-[2rem] text-stone-50">
                     {item.toUpperCase()}
                   </span>
                 </div>
@@ -161,7 +161,7 @@ const Menu = forwardRef((props, ref) => {
         <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
           <button
             ref={buttonRef}
-            className="mt-auto py-4 border bg-stone-950 rounded-md font-primary font-medium text-stone-50 hover:bg-stone-800 hover:text-stone-50 transition-colors duration-300 w-full text-center text-xl cursor-pointer"
+            className="mt-auto py-4 border bg-stone-50 rounded-md font-primary font-semibold text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
             onMouseDown={(e) =>
               gsap.to(e.currentTarget, {
                 scale: 0.95,

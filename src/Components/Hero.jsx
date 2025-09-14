@@ -28,7 +28,7 @@ export default function Hero({ isPreloaderDone }) {
         scrambleText: {
           text: "engineer".toUpperCase(),
           chars: "upperCase",
-          speed: 1,
+          speed: 5,
         },
         duration: 0.5,
         paused: true, // start paused
@@ -94,14 +94,14 @@ export default function Hero({ isPreloaderDone }) {
 
   return (
     <>
-      <section id="Index">
+      <section id="Index" className="z-10">
         <div className="bg-stone-50 w-screen h-screen flex flex-col px-5">
           {/* Main empty space */}
-          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-100 md:pt-60 lg:pt-70 mb-auto">
-            <div className="md:col-span-8 xl:col-span-6 text-center md:text-left">
+          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-100 md:pt-80 lg:pt-auto lg:pb-auto mb-auto">
+            <div className="md:col-span-full lg:col-span-8 xl:col-span-6 text-center md:text-left">
               <div className="w-full overflow-hidden">
                 <span
-                  className="font-secondary text-xl md:text-l font-bold tracking-normal"
+                  className="font-secondary text-xl md:text-l font-bold tracking-normal pl-3"
                   ref={addToHeadingRefs}
                 >
                   A Seriously Good
@@ -109,7 +109,7 @@ export default function Hero({ isPreloaderDone }) {
               </div>
               <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl tracking-tight md:leading-30 text-center md:text-left"
+                  className="font-primary font-bold text-7xl md:text-8xl lg:text-9xl tracking-tight md:leading-30 text-center md:text-left"
                   ref={addToHeadingRefs}
                 >
                   {"creative".toUpperCase()}
@@ -117,7 +117,7 @@ export default function Hero({ isPreloaderDone }) {
               </div>
               <div className="w-full w-max-[1024px] overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl tracking-tight md:leading-30 text-center md:text-right"
+                  className="font-primary font-bold text-7xl md:text-8xl lg:text-9xl tracking-tight md:leading-30 text-center md:text-right"
                   ref={(el) => {
                     hoverRef.current = el;
                     addToHeadingRefs(el);
@@ -132,13 +132,12 @@ export default function Hero({ isPreloaderDone }) {
           </div>
 
           {/* Bottom line content */}
-          <div className="flex flex-col md:flex-row justify-between items-end gap-4 py-5">
+          <div className="flex flex-col md:grid md:grid-cols-12 md:gap-10 justify-between items-end gap-4 py-5">
             {/* Left side: cool sh*t */}
-            <div className="overflow-hidden">
-              {" "}
+            <div className="overflow-hidden md:col-span-4">
               <div
                 ref={indicateRef}
-                className="hidden md:flex items-center gap-1 text-stone-700"
+                className="hidden md:flex items-center gap-1 text-stone-700 w-fit"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -156,23 +155,23 @@ export default function Hero({ isPreloaderDone }) {
                   <path d="M12 5v14"></path>
                   <path d="m19 12-7 7-7-7"></path>
                 </svg>
-                <span className="text-base font-primary font-semibold tracking-tight">
+                <span className="text-xl font-primary font-semibold tracking-tight">
                   Cool
                 </span>
-                <span className="text-base font-secondary font-medium tracking-tight">
+                <span className="text-xl font-secondary font-medium tracking-tight">
                   sh*t
                 </span>
               </div>
             </div>
 
             {/* Right side text */}
-            <div className="w-full md:w-[25rem]">
+            <div className="w-full md:col-span-6 md:col-end-13 lg:col-span-4 lg:col-end-13">
               <span
-                className="block text-center md:text-right font-primary font-semibold text-xl tracking-tight text-stone-700"
+                className="block text-center md:text-right font-primary font-semibold text-xl lg:text-2xl tracking-tight text-stone-700"
                 ref={paragraphRef}
               >
-                Website design, digital product design, interactive design,
-                prototyping, art direction, print design, branding.
+                Website design, digital product design, interactive
+                design,prototyping, art direction, print design, branding.
               </span>
             </div>
           </div>
