@@ -105,7 +105,7 @@ const Menu = forwardRef((props, ref) => {
 
   return (
     <nav
-      className="menu relative p-4 border bg-stone-950 rounded-md min-w-xs h-fit shadow-sm w-full col-span-full md:col-span-3"
+      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-3 md:col-end-13"
       ref={ref}
     >
       <div className="logo-container flex justify-between">
@@ -132,7 +132,7 @@ const Menu = forwardRef((props, ref) => {
         </div>
       </div>
       <div
-        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-md flex flex-col justify-between gap-20 border-0 shadow-none"
+        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none"
         ref={menuContainerRef}
       >
         <div className="flex flex-col h-fit px-4 py-4">
@@ -161,7 +161,7 @@ const Menu = forwardRef((props, ref) => {
         <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
           <button
             ref={buttonRef}
-            className="mt-auto py-4 border bg-stone-50 rounded-md font-primary font-semibold text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
+            className="mt-auto py-4 border bg-stone-50 rounded-xl font-primary font-semibold text-stone-700 hover:bg-stone-200 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
             onMouseDown={(e) =>
               gsap.to(e.currentTarget, {
                 scale: 0.95,

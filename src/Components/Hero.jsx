@@ -104,7 +104,7 @@ export default function Hero({ isPreloaderDone }) {
                   className="font-secondary text-xl md:text-l font-bold tracking-normal pl-3"
                   ref={addToHeadingRefs}
                 >
-                  A Seriously Good
+                  A Ordinary
                 </span>
               </div>
               <div className="w-full overflow-hidden">
