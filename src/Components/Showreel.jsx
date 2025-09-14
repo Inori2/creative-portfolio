@@ -58,10 +58,10 @@ export default function Showreel({ isPreloaderDone }) {
             scale: 1,
             scrollTrigger: {
               trigger: videoScrollRef.current,
-              start: "top center",
-              end: "center center",
+              start: "top-=200 center+=200",
+              end: "center center+=200",
               scrub: true,
-              markers: true, // Debug mode
+              markers: true,
             },
           });
         }
@@ -74,10 +74,9 @@ export default function Showreel({ isPreloaderDone }) {
   useEffect(() => {
     if (!isPreloaderDone || !videoScrollRef.current) return;
 
-    gsap.from(videoRef.current, {
-      yPercent: 100,
+    gsap.from(videoWrapperRef.current, {
+      clipPath: "inset(100% 0% 0% 0%)",
       duration: 0.5,
-      scale: 0,
       delay: 0.1,
       ease: "power1.out",
     });
