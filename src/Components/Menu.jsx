@@ -105,7 +105,7 @@ const Menu = forwardRef((props, ref) => {
 
   return (
     <nav
-      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-3 md:col-end-13"
+      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13"
       ref={ref}
     >
       <div className="logo-container flex justify-between">

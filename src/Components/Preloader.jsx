@@ -71,7 +71,7 @@ function Preloader({ setIsPreloaderDone }) {
     >
       {[1, 2, 3, 4, 5].map((num) => (
         <div
-          className="img-container overflow-hidden absolute top-1/2 left-1/2 w-[40%] h-[35%] lg:w-[15%] lg:h-[35%] -translate-x-1/2 -translate-y-1/2"
+          className="img-container overflow-hidden absolute top-1/2 left-1/2 w-[50%] h-[35%] lg:w-[15%] lg:h-[35%] -translate-x-1/2 -translate-y-1/2"
           key={num}
         >
           <img

@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import useMousePosition from "./useMousePosition";
-import Hero from "./Hero";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Showreel({ isPreloaderDone }) {
-  const heroRef = useRef(null);
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const showcaseRef = useRef(null);
@@ -23,7 +20,6 @@ export default function Showreel({ isPreloaderDone }) {
 
   useEffect(() => {
     const mm = gsap.matchMedia();
-    let mouseTrackingEnabled = true;
 
     mm.add(
       {
@@ -101,7 +97,7 @@ export default function Showreel({ isPreloaderDone }) {
           ref={videoScrollRef}
         >
           <div
-            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-4xl"
+            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit md:rounded-4xl"
             ref={videoWrapperRef}
           >
             {/* Video */}
@@ -112,7 +108,7 @@ export default function Showreel({ isPreloaderDone }) {
               loop
               playsInline
               autoPlay
-              className="w-full h-full pointer-events-none rounded-4xl origin-bottom" // prevents blocking button clicks
+              className="w-full h-full pointer-events-none rounded-2xl md:rounded-4xl origin-bottom" // prevents blocking button clicks
             ></video>
 
             {/* Full-area invisible button */}
