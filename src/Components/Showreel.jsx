@@ -1,13 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import useMousePosition from "./useMousePosition";
+import Hero from "./Hero";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Showreel({ isPreloaderDone }) {
+  const heroRef = useRef(null);
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const showcaseRef = useRef(null);
   const videoWrapperRef = useRef(null);
+  const videoScrollRef = useRef(null);
+
+  const mouse = useMousePosition();
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -47,6 +53,17 @@ export default function Showreel({ isPreloaderDone }) {
             transformOrigin: "top right",
             translateY: "-55vh",
           });
+          gsap.to(videoWrapperRef.current, {
+            y: "0vh",
+            scale: 1,
+            scrollTrigger: {
+              trigger: videoScrollRef.current,
+              start: "top center",
+              end: "center center",
+              scrub: true,
+              markers: true, // Debug mode
+            },
+          });
         }
       }
     );
@@ -55,24 +72,26 @@ export default function Showreel({ isPreloaderDone }) {
   }, []);
 
   useEffect(() => {
-    if (!isPreloaderDone) return;
+    if (!isPreloaderDone || !videoScrollRef.current) return;
 
-    const ctx = gsap.context(() => {
-      gsap.from(videoRef.current, {
-        yPercent: 100,
-        duration: 0.5,
-        scale: 0,
-        delay: 0.1,
-        ease: "power1.out",
-      });
-    }, showcaseRef);
-    return () => ctx.revert();
+    gsap.from(videoRef.current, {
+      yPercent: 100,
+      duration: 0.5,
+      scale: 0,
+      delay: 0.1,
+      ease: "power1.out",
+    });
   }, [isPreloaderDone]);
+
+  useEffect(() => {});
 
   return (
     <section ref={showcaseRef}>
       <div className="bg-stone-50 h-screen w-screen p-5 relative">
-        <div className="video-preview relative aspect-video overflow-visible w-full h-full rounded-2xl">
+        <div
+          className="video-preview relative overflow-visible w-full h-full rounded-2xl"
+          ref={videoScrollRef}
+        >
           <div
             className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-4xl aspect-video"
             ref={videoWrapperRef}

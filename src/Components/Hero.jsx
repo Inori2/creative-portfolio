@@ -1,10 +1,10 @@
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import ScrambleTextPlugin from "gsap/ScrambleTextPlugin";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
-export default function Hero({ isPreloaderDone }) {
+const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const headingRef = useRef([]);
   const addToHeadingRefs = (el) => {
     if (el && !headingRef.current.includes(el)) {
@@ -15,6 +15,10 @@ export default function Hero({ isPreloaderDone }) {
   const indicateRef = useRef(null);
   const sectionRef = useRef(null);
   const hoverRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    indicate: indicateRef.current,
+  }));
 
   const hoverAnim = useRef(null); // GSAP animation instance
   const reverseTimeout = useRef(null);
@@ -179,4 +183,5 @@ export default function Hero({ isPreloaderDone }) {
       </section>
     </>
   );
-}
+});
+export default Hero;
