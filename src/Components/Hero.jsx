@@ -98,10 +98,10 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
 
   return (
     <>
-      <section id="Index" className="z-10">
-        <div className="bg-stone-50 w-screen h-screen flex flex-col px-5">
+      <section id="index" className="z-10">
+        <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
-          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-100 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
+          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-60 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
             <div className="md:col-span-full lg:col-span-8 xl:col-span-6 text-center md:text-left">
               <div className="w-full overflow-hidden">
                 <span
@@ -136,7 +136,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
           </div>
 
           {/* Bottom line content */}
-          <div className="flex flex-col md:grid md:grid-cols-12 md:gap-10 justify-between items-end gap-4 py-5">
+          <div className="pb-30 md:pb-5 flex flex-col md:grid md:grid-cols-12 md:gap-10 justify-between items-end gap-4 md:py-5">
             {/* Left side: cool sh*t */}
             <div className="overflow-hidden md:col-span-4">
               <div

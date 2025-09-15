@@ -105,91 +105,93 @@ const Menu = forwardRef((props, ref) => {
   }
 
   return (
-    <nav
-      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13 border-stone-800"
-      ref={ref}
-    >
-      <div className="logo-container flex justify-between">
-        <a
-          href="/"
-          className="logo text-right font-primary font-bold text-stone-50 leading-none"
-        >
-          Made by© <br /> Sang
-        </a>
-        <div
-          className="menu-toggle cursor-pointer p-1 flex flex-col justify-center items-center"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <div
-            className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
-              isMenuOpen ? "rotate-45 translate-y-[6px]" : ""
-            }`}
-          ></div>
-          <div
-            className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
-              isMenuOpen ? "-rotate-45 -translate-y-[4px]" : ""
-            }`}
-          ></div>
-        </div>
-      </div>
-      <div
-        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none border-stone-800"
-        ref={menuContainerRef}
+    <>
+      <nav
+        className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13 border-stone-800"
+        ref={ref}
       >
-        <div className="flex flex-col h-fit px-4 py-4">
-          {["Index", "Works", "Process", "Services"].map((item, i) => (
-            <a
-              href={`#${item.toLowerCase()}`}
-              key={i}
-              ref={(el) => (linkRef.current[i] = el)}
-              onMouseEnter={onLinkHover}
-              onMouseLeave={onLinkLeave}
-              className="block"
-            >
-              <div className="overflow-hidden h-[2.5rem] mb-4">
-                <div className="menu-item flex flex-col w-full">
-                  <span className="font-primary font-bold text-[2rem] text-stone-50">
-                    {item.toUpperCase()}
-                  </span>
-                  <span className="font-primary font-bold text-[2rem] text-stone-50">
-                    {item.toUpperCase()}
-                  </span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-        <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
-          <button
-            ref={buttonRef}
-            className="mt-auto py-4 border bg-stone-50 rounded-xl font-primary font-semibold text-stone-700 hover:bg-stone-200 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
-            onMouseDown={(e) =>
-              gsap.to(e.currentTarget, {
-                scale: 0.95,
-                duration: 0.15,
-                ease: "power3.out",
-              })
-            }
-            onMouseUp={(e) =>
-              gsap.to(e.currentTarget, {
-                scale: 1,
-                duration: 0.15,
-                ease: "power3.inOut",
-              })
-            }
-            onMouseLeave={(e) =>
-              gsap.to(e.currentTarget, {
-                scale: 1,
-                duration: 0.15,
-                ease: "power3.inOut",
-              })
-            }
+        <div className="logo-container flex justify-between">
+          <a
+            href="/"
+            className="logo text-right font-primary font-bold text-stone-50 leading-none"
           >
-            Get in touch
-          </button>
-        </a>
-      </div>
-    </nav>
+            Made by© <br /> Sang
+          </a>
+          <div
+            className="menu-toggle cursor-pointer p-1 flex flex-col justify-center items-center"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <div
+              className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
+                isMenuOpen ? "rotate-45 translate-y-[6px]" : ""
+              }`}
+            ></div>
+            <div
+              className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
+                isMenuOpen ? "-rotate-45 -translate-y-[4px]" : ""
+              }`}
+            ></div>
+          </div>
+        </div>
+        <div
+          className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none border-stone-800"
+          ref={menuContainerRef}
+        >
+          <div className="flex flex-col h-fit px-4 py-4">
+            {["Index", "Works", "Process", "Services"].map((item, i) => (
+              <a
+                href={`#${item.toLowerCase()}`}
+                key={i}
+                ref={(el) => (linkRef.current[i] = el)}
+                onMouseEnter={onLinkHover}
+                onMouseLeave={onLinkLeave}
+                className="block"
+              >
+                <div className="overflow-hidden h-[2.5rem] mb-4">
+                  <div className="menu-item flex flex-col w-full">
+                    <span className="font-primary font-bold text-[2rem] text-stone-50">
+                      {item.toUpperCase()}
+                    </span>
+                    <span className="font-primary font-bold text-[2rem] text-stone-50">
+                      {item.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
+            <button
+              ref={buttonRef}
+              className="mt-auto py-4 border bg-stone-50 rounded-xl font-primary font-semibold text-stone-700 hover:bg-stone-200 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
+              onMouseDown={(e) =>
+                gsap.to(e.currentTarget, {
+                  scale: 0.95,
+                  duration: 0.15,
+                  ease: "power3.out",
+                })
+              }
+              onMouseUp={(e) =>
+                gsap.to(e.currentTarget, {
+                  scale: 1,
+                  duration: 0.15,
+                  ease: "power3.inOut",
+                })
+              }
+              onMouseLeave={(e) =>
+                gsap.to(e.currentTarget, {
+                  scale: 1,
+                  duration: 0.15,
+                  ease: "power3.inOut",
+                })
+              }
+            >
+              Get in touch
+            </button>
+          </a>
+        </div>
+      </nav>
+    </>
   );
 });
 

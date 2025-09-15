@@ -34,7 +34,7 @@ export default function Showreel({ isPreloaderDone }) {
           // Mobile settings - NO SCALE
           gsap.set(videoWrapperRef.current, {
             transformOrigin: "top right",
-            translateY: "-85svh",
+            translateY: "-140svh",
           });
         } else if (tablet) {
           // Tablet settings - NO SCALE
@@ -117,11 +117,11 @@ export default function Showreel({ isPreloaderDone }) {
         ref={videoContainerRef}
       >
         <div
-          className="video-preview relative overflow-visible w-full h-full rounded-2xl"
+          className="video-preview relative overflow-visible w-full h-full"
           ref={videoScrollRef}
         >
           <div
-            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit md:rounded-4xl"
+            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-2xl md:rounded-4xl"
             ref={videoWrapperRef}
           >
             {/* Video */}
