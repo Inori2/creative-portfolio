@@ -34,7 +34,7 @@ export default function Showreel({ isPreloaderDone }) {
           // Mobile settings - NO SCALE
           gsap.set(videoWrapperRef.current, {
             transformOrigin: "top right",
-            translateY: "-85vh",
+            translateY: "-85svh",
           });
         } else if (tablet) {
           // Tablet settings - NO SCALE
@@ -66,6 +66,31 @@ export default function Showreel({ isPreloaderDone }) {
               },
             },
           });
+          const handleMouseMove = (e) => {
+            const windowCenter = window.innerHeight / 2;
+            const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
+
+            const maxOffset = 5; // move down limit
+            const minOffset = -38; // move up limit
+
+            const clampedOffset = Math.max(
+              minOffset,
+              Math.min(rawOffset, maxOffset)
+            );
+
+            gsap.to(videoWrapperRef.current, {
+              yPercent: clampedOffset, // only Y changes
+              duration: 0.4,
+              ease: "power3.out",
+            });
+          };
+
+          window.addEventListener("mousemove", handleMouseMove);
+
+          // Cleanup
+          return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+          };
         }
       }
     );
@@ -78,13 +103,11 @@ export default function Showreel({ isPreloaderDone }) {
 
     gsap.from(videoWrapperRef.current, {
       clipPath: "inset(100% 0% 0% 0%)",
-      duration: 0.5,
+      duration: 0.8,
       delay: 0.1,
-      ease: "power1.out",
+      ease: "expo.out",
     });
   }, [isPreloaderDone]);
-
-  useEffect(() => {});
 
   return (
     <section ref={showcaseRef}>
