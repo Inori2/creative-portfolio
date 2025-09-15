@@ -64,29 +64,58 @@ export default function Showreel({ isPreloaderDone }) {
                 delay: 0.05,
                 ease: "power1.inOut",
               },
-              markers: true,
             },
           });
           const handleMouseMove = (e) => {
             const windowCenter = window.innerHeight / 2;
             const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
 
-            const maxOffset = 0; // move down limit
-            const minOffset = -35; // move up limit
+            // --- NEW LOGIC ---
+            const videoBlock = videoScrollRef.current;
+            const videoBlockRect = videoBlock.getBoundingClientRect();
 
+            // Check if the video block has reached the end
+            const isAtEnd = videoBlockRect.bottom <= window.innerHeight;
+
+            // If at the end, minOffset becomes 0
+            const minOffset = isAtEnd ? 0 : -35;
+
+            // Normal clamping logic
+            const maxOffset = 0;
             const clampedOffset = Math.max(
               minOffset,
               Math.min(rawOffset, maxOffset)
             );
 
             gsap.to(videoWrapperRef.current, {
-              yPercent: clampedOffset, // only Y changes
+              yPercent: clampedOffset,
               duration: 0.4,
               ease: "power3.out",
             });
           };
 
+          const handleWheel = (e) => {
+            if (e.deltaY > 0) {
+              // Scrolling down
+              gsap.fromTo(
+                videoWrapperRef.current,
+                {
+                  yPercent: gsap.getProperty(
+                    videoWrapperRef.current,
+                    "yPercent"
+                  ),
+                },
+                {
+                  yPercent: 0,
+                  duration: 1,
+                  ease: "expo.out",
+                }
+              );
+            }
+          };
+
           window.addEventListener("mousemove", handleMouseMove);
+          window.addEventListener("wheel", handleWheel);
 
           // Cleanup
           return () => {
