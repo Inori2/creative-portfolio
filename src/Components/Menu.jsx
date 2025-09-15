@@ -36,6 +36,7 @@ const Menu = forwardRef((props, ref) => {
         duration: 0.3,
         boxShadow:
           "0px 1px 0px rgb(0 0 0 / 0.075), 0px 1px 1px rgb(0 0 0 / 0.075), 0px 3px 3px rgb(0 0 0 / 0.075)",
+        border: "solid 1px rgb(41 37 36)",
       },
       0
     ).set(menuContainer, { height: "auto" }); // allow natural height after open
@@ -105,7 +106,7 @@ const Menu = forwardRef((props, ref) => {
 
   return (
     <nav
-      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13"
+      className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13 border-stone-800"
       ref={ref}
     >
       <div className="logo-container flex justify-between">
@@ -132,7 +133,7 @@ const Menu = forwardRef((props, ref) => {
         </div>
       </div>
       <div
-        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none"
+        className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none border-stone-800"
         ref={menuContainerRef}
       >
         <div className="flex flex-col h-fit px-4 py-4">

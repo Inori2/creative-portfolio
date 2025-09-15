@@ -84,7 +84,7 @@ export default function Navbar({ isPreloaderDone }) {
   return (
     <>
       <div
-        className="navbar fixed w-screen p-5 grid grid-cols-12 gap-4 lg:gap-8 justify-center items-center overflow-visible h-fit z-49 bg-transparent"
+        className="navbar fixed w-screen p-5 grid grid-cols-12 gap-4 lg:gap-8 justify-center items-center overflow-visible h-fit z-49 bg-transparent top-0"
         ref={navbarContainer}
       >
         <div className="hidden md:block col-span-3">
