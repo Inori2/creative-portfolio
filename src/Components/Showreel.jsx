@@ -61,17 +61,18 @@ export default function Showreel({ isPreloaderDone }) {
               snap: {
                 snapTo: 1,
                 duration: { min: 0.2, max: 0.8 },
-                delay: 0.2,
+                delay: 0.05,
                 ease: "power1.inOut",
               },
+              markers: true,
             },
           });
           const handleMouseMove = (e) => {
             const windowCenter = window.innerHeight / 2;
             const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
 
-            const maxOffset = 5; // move down limit
-            const minOffset = -38; // move up limit
+            const maxOffset = 0; // move down limit
+            const minOffset = -35; // move up limit
 
             const clampedOffset = Math.max(
               minOffset,
