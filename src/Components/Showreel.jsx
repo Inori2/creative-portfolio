@@ -70,18 +70,25 @@ export default function Showreel({ isPreloaderDone }) {
             const windowCenter = window.innerHeight / 2;
             const rawOffset = (e.clientY - windowCenter) * 0.1; // sensitivity multiplier
 
-            // --- NEW LOGIC ---
-            const videoBlock = videoScrollRef.current;
-            const videoBlockRect = videoBlock.getBoundingClientRect();
+            // Get current scale from GSAP
+            const currentScale = gsap.getProperty(
+              videoWrapperRef.current,
+              "scale"
+            );
 
-            // Check if the video block has reached the end
-            const isAtEnd = videoBlockRect.bottom <= window.innerHeight;
+            const minScale = 0.35; // your default scale
+            const maxScale = 1; // final scale when zoomed in
 
-            // If at the end, minOffset becomes 0
-            const minOffset = isAtEnd ? 0 : -35;
+            // Normalize progress between 0 and 1
+            const progress = Math.min(
+              Math.max((currentScale - minScale) / (maxScale - minScale), 0),
+              1
+            );
 
-            // Normal clamping logic
-            const maxOffset = 0;
+            // Interpolate between -35 (at scale 0.35) and 0 (at scale 1)
+            const minOffset = gsap.utils.interpolate(-35, 0, progress);
+
+            const maxOffset = 0; // Always fixed downward boundary
             const clampedOffset = Math.max(
               minOffset,
               Math.min(rawOffset, maxOffset)
