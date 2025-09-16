@@ -1,7 +1,8 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useState, useEffect, useRef, forwardRef } from "react";
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrollToPlugin);
 
 const Menu = forwardRef((props, ref) => {
   const menuContainerRef = useRef(null);
@@ -143,6 +144,17 @@ const Menu = forwardRef((props, ref) => {
                 href={`#${item.toLowerCase()}`}
                 key={i}
                 ref={(el) => (linkRef.current[i] = el)}
+                onClick={(e) => {
+                  e.preventDefault(); // stop default jump
+                  const target = document.getElementById(item.toLowerCase());
+                  if (target) {
+                    gsap.to(window, {
+                      duration: 1.2,
+                      scrollTo: target,
+                      ease: "power2.inOut",
+                    });
+                  }
+                }}
                 onMouseEnter={onLinkHover}
                 onMouseLeave={onLinkLeave}
                 className="block"

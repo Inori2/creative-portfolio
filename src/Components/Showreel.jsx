@@ -149,7 +149,7 @@ export default function Showreel({ isPreloaderDone }) {
   return (
     <section ref={showcaseRef}>
       <div
-        className="bg-stone-50 h-screen w-screen p-5 relative overflow-visible"
+        className="bg-stone-50 h-0 lg:h-screen w-screen p-5 relative overflow-visible"
         ref={videoContainerRef}
       >
         <div
