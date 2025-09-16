@@ -102,7 +102,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
           <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-60 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
-            <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left pr-10">
+            <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left lg:pr-10">
               <div className="w-full overflow-hidden">
                 <span
                   className="font-secondary text-xl md:text-xl font-bold tracking-wide pl-3"
@@ -113,7 +113,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-8xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-left"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-left"
                   ref={addToHeadingRefs}
                 >
                   {"creative".toUpperCase()}
@@ -121,7 +121,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full w-max-[1024px] overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-8xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-right"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-right"
                   ref={(el) => {
                     hoverRef.current = el;
                     addToHeadingRefs(el);
