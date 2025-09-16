@@ -6,6 +6,7 @@ import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import Showreel from "./Components/Showreel";
 import Highlight from "./Components/Highlights";
+import { Works } from "./Components/Works";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -29,6 +30,7 @@ function App() {
         <Hero isPreloaderDone={isPreloaderDone} />
         <Showreel isPreloaderDone={isPreloaderDone} />
         <Highlight />
+        <Works />
       </ReactLenis>
     </>
   );
