@@ -23,12 +23,13 @@ function App() {
 
   return (
     <>
-      <ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />
-      <Preloader setIsPreloaderDone={setIsPreloaderDone} />
-      <Navbar isPreloaderDone={isPreloaderDone} />
-      <Hero isPreloaderDone={isPreloaderDone} />
-      <Showreel isPreloaderDone={isPreloaderDone} />
-      <Highlight />
+      <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>
+        <Preloader setIsPreloaderDone={setIsPreloaderDone} />
+        <Navbar isPreloaderDone={isPreloaderDone} />
+        <Hero isPreloaderDone={isPreloaderDone} />
+        <Showreel isPreloaderDone={isPreloaderDone} />
+        <Highlight />
+      </ReactLenis>
     </>
   );
 }
