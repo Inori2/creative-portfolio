@@ -2,7 +2,7 @@ import gsap from "gsap";
 import { ReactLenis } from "lenis/react";
 import { useEffect, useRef, useState } from "react";
 import Preloader from "./Components/Preloader";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/ui/Navbar";
 import Hero from "./Components/Hero";
 import Showreel from "./Components/Showreel";
 import Highlight from "./Components/Highlights";
