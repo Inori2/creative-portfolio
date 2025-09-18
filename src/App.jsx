@@ -6,7 +6,7 @@ import Navbar from "./Components/ui/Navbar";
 import Hero from "./Components/Hero";
 import Showreel from "./Components/Showreel";
 import Highlight from "./Components/Highlights";
-import { Works } from "./Components/Works";
+import Works from "./Components/Works";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);

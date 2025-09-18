@@ -102,7 +102,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
           <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-60 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
-            <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left lg:pr-10">
+            <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left lg:pr-20">
               <div className="w-full overflow-hidden">
                 <span
                   className="font-secondary text-xl md:text-xl font-bold tracking-wide pl-3"
@@ -174,8 +174,9 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
                 className="block text-center md:text-right font-primary font-semibold text-xl lg:text-2xl tracking-tight text-stone-700"
                 ref={paragraphRef}
               >
-                Website design, digital product design, interactive
-                design,prototyping, art direction, print design, branding.
+                Bridging the gap between ideas and reality, I help businesses
+                bring their boldest visions to life through seamless digital
+                experiences.
               </span>
             </div>
           </div>
