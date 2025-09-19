@@ -96,6 +96,18 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
     return () => ctx.revert();
   }, [isPreloaderDone]);
 
+  useEffect(() => {
+    return () => {
+      if (hoverAnim.current) {
+        hoverAnim.current.kill();
+        hoverAnim.current = null;
+      }
+      if (reverseTimeout.current) {
+        clearTimeout(reverseTimeout.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       <section id="index" className="z-10">
@@ -113,7 +125,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-left"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-left"
                   ref={addToHeadingRefs}
                 >
                   {"creative".toUpperCase()}
@@ -121,7 +133,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full w-max-[1024px] overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[10vw] tracking-tight md:leading-30 text-center md:text-right"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-right"
                   ref={(el) => {
                     hoverRef.current = el;
                     addToHeadingRefs(el);

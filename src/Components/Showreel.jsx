@@ -128,6 +128,7 @@ export default function Showreel({ isPreloaderDone }) {
           // Cleanup
           return () => {
             window.removeEventListener("mousemove", handleMouseMove);
+            ScrollTrigger.getAll().forEach((trigger) => trigger.kill()); // cleanup
           };
         }
       }

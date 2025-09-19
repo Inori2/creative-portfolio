@@ -41,7 +41,10 @@ export default function Project({
         .to(infoBarRef.current, { y: "-20%", ease: "none" }, 0);
     }, projectRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    }; // kill any leftover scroll triggers
   }, []);
 
   /** 🔹 Hover Animations with GSAP MatchMedia */
@@ -73,7 +76,7 @@ export default function Project({
           });
 
           const handleMouseEnter = () => {
-            gsap.killTweensOf(vidEl);
+            gsap.killTweensOf([vidEl, bgEl, linkEl]);
             vidEl.play();
             gsap.to(bgEl, {
               filter: "blur(8px)",
@@ -95,7 +98,7 @@ export default function Project({
           };
 
           const handleMouseLeave = () => {
-            gsap.killTweensOf(vidEl);
+            gsap.killTweensOf([vidEl, bgEl, linkEl]);
             gsap.to(bgEl, {
               filter: "blur(0px)",
               scale: 1,
@@ -167,6 +170,7 @@ export default function Project({
                   loop
                   playsInline
                   autoPlay
+                  preload="auto"
                 />
               )}
             </div>
