@@ -100,8 +100,17 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
     <>
       <section id="index" className="z-10">
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
+          {" "}
+          <video
+            src="/assets/videos/hero-video-compressed.mp4"
+            muted
+            loop
+            playsInline
+            autoPlay
+            className="md:hidden w-full h-full pointer-events-none rounded-2xl md:rounded-4xl origin-bottom" // prevents blocking button clicks
+          ></video>
           {/* Main empty space */}
-          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-60 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
+          <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
             <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left lg:pr-20">
               <div className="w-full overflow-hidden">
                 <span
@@ -134,7 +143,6 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
             </div>
           </div>
-
           {/* Bottom line content */}
           <div className="pb-30 md:pb-5 flex flex-col md:grid md:grid-cols-12 md:gap-10 justify-between items-end gap-4 md:py-5">
             {/* Left side: cool sh*t */}
