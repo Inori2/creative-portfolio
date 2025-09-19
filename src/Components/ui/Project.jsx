@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Background from "../../assets/images/project-img-1.jpg";
-import VideoDefault from "../../assets/videos/hero-video-compressed.mp4";
+import Background from "/assets/images/project-img-1.jpg";
+import VideoDefault from "/assets/videos/hero-video-compressed.mp4";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Project({
