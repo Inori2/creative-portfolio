@@ -129,7 +129,7 @@ export default function Navbar({ isPreloaderDone }) {
               className="block font-primary text-base text-stone-700 font-semibold"
               ref={(el) => (topTextRefs.current[1] = el)}
             >
-              Timezone
+              Local time
             </span>
           </div>
           <div className="block overflow-hidden mix-blend-difference">

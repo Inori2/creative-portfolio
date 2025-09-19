@@ -81,7 +81,7 @@ function Preloader({ setIsPreloaderDone }) {
           key={num}
         >
           <img
-            src={`/src/assets/images/preloader-img-${num}.png`}
+            src={`/src/assets/images/preloader-img-${num}.jpg`}
             alt=""
             className="absolute top-0 left-0 w-full h-full object-cover"
           />
