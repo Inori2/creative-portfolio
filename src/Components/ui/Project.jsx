@@ -16,6 +16,7 @@ export default function Project({
   const backgroundRef = useRef(null);
   const infoBarRef = useRef(null);
   const videoRef = useRef(null);
+  const linkRef = useRef(null);
 
   /** 🔹 Parallax Effect */
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Project({
         const vidEl = videoRef.current;
         const bgEl = backgroundRef.current;
         const projectEl = projectRef.current;
+        const linkEl = linkRef.current;
 
         if (isDesktop) {
           // Desktop: hide video by default
@@ -71,6 +73,7 @@ export default function Project({
           });
 
           const handleMouseEnter = () => {
+            gsap.killTweensOf(vidEl);
             vidEl.play();
             gsap.to(bgEl, {
               filter: "blur(8px)",
@@ -84,9 +87,15 @@ export default function Project({
               duration: 1,
               ease: "expo.out",
             });
+            gsap.to(linkEl, {
+              yPercent: -50,
+              duration: 1,
+              ease: "expo.out",
+            });
           };
 
           const handleMouseLeave = () => {
+            gsap.killTweensOf(vidEl);
             gsap.to(bgEl, {
               filter: "blur(0px)",
               scale: 1,
@@ -102,6 +111,11 @@ export default function Project({
                 vidEl.pause();
                 vidEl.currentTime = 0;
               },
+            });
+            gsap.to(linkEl, {
+              yPercent: 0,
+              duration: 1,
+              ease: "expo.out",
             });
           };
 
@@ -167,7 +181,34 @@ export default function Project({
           <span className="font-primary font-bold text-xl">
             {Name.toUpperCase()}
           </span>
-          <span className="font-primary font-semibold">{Year}</span>
+          <div className="h-1/2 overflow-hidden">
+            <div ref={linkRef} className="flex flex-col">
+              <span className="font-primary font-medium text-xl text-right">
+                {Year}
+              </span>
+              <div className="flex gap-2 items-center">
+                <span className="font-primary font-semibold text-xl text-right">
+                  View Project
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-[clamp(14px,1vw,24px)] h-[clamp(14px,1vw,24px)] text-stone-700"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </a>
