@@ -35,7 +35,7 @@ export default function Showreel({ isPreloaderDone }) {
           // Mobile settings - NO SCALE
           gsap.set(videoWrapperRef.current, {
             transformOrigin: "top right",
-            translateY: "-100svh",
+            translateY: "-80svh",
           });
         } else if (tablet) {
           // Tablet settings - NO SCALE
