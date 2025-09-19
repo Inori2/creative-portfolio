@@ -73,7 +73,7 @@ export default function Works() {
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">
             {"recent works".toUpperCase()}
           </h2>
-          <p className="font-primary text-stone-600 tracking-wide text-xl">
+          <p className="font-primary text-stone-600 tracking-wide text-3xl font-">
             Featured projects crafted with love and passion to drive real
             impact.
           </p>
