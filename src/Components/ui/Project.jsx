@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Background from "../../assets/images/project-img-1.jpg";
@@ -43,66 +43,86 @@ export default function Project({
     return () => ctx.revert();
   }, []);
 
-  /** 🔹 Hover Animations with useCallback (prevents re-creation on each render) */
-  const handleMouseEnter = useCallback(() => {
-    if (!backgroundRef.current || !videoRef.current) return;
+  /** 🔹 Hover Animations with GSAP MatchMedia */
+  useEffect(() => {
+    if (!projectRef.current || !backgroundRef.current || !videoRef.current)
+      return;
 
-    // Play video on hover
-    videoRef.current.play();
+    const mm = gsap.matchMedia();
 
-    // Background blur + slight scale
-    gsap.to(backgroundRef.current, {
-      filter: "blur(4px)",
-      scale: 1.05,
-      duration: 0.4,
-      ease: "power3.out",
-      overwrite: "auto",
-    });
-
-    // Animate video up and scale in
-    gsap.fromTo(
-      videoRef.current,
+    mm.add(
       {
-        yPercent: 100,
-        scale: 0,
-        transformOrigin: "center bottom",
+        // Define conditions
+        isDesktop: "(pointer: fine) and (min-width: 1024px)",
+        isMobile: "(pointer: coarse) or (max-width: 1023px)",
       },
-      {
-        yPercent: 0,
-        scale: 1,
-        duration: 1,
-        ease: "expo.out",
-        overwrite: "auto",
+      (context) => {
+        const { isDesktop, isMobile } = context.conditions;
+        const vidEl = videoRef.current;
+        const bgEl = backgroundRef.current;
+        const projectEl = projectRef.current;
+
+        if (isDesktop) {
+          // Desktop: hide video by default
+          gsap.set(vidEl, {
+            yPercent: 100,
+            scale: 0,
+            transformOrigin: "center bottom",
+          });
+
+          const handleMouseEnter = () => {
+            vidEl.play();
+            gsap.to(bgEl, {
+              filter: "blur(4px)",
+              scale: 1.05,
+              duration: 0.4,
+              ease: "power3.out",
+            });
+            gsap.to(vidEl, {
+              yPercent: 0,
+              scale: 1,
+              duration: 1,
+              ease: "expo.out",
+            });
+          };
+
+          const handleMouseLeave = () => {
+            gsap.to(bgEl, {
+              filter: "blur(0px)",
+              scale: 1,
+              duration: 0.4,
+              ease: "power3.inOut",
+            });
+            gsap.to(vidEl, {
+              yPercent: 100,
+              scale: 0,
+              duration: 0.6,
+              ease: "power3.in",
+              onComplete: () => {
+                vidEl.pause();
+                vidEl.currentTime = 0;
+              },
+            });
+          };
+
+          projectEl.addEventListener("mouseenter", handleMouseEnter);
+          projectEl.addEventListener("mouseleave", handleMouseLeave);
+
+          return () => {
+            projectEl.removeEventListener("mouseenter", handleMouseEnter);
+            projectEl.removeEventListener("mouseleave", handleMouseLeave);
+          };
+        }
+
+        if (isMobile) {
+          // Mobile & tablet: show video by default
+          gsap.set(vidEl, { yPercent: 0, scale: 1 });
+          vidEl.play();
+        }
       }
     );
-  }, []);
 
-  const handleMouseLeave = useCallback(() => {
-    if (!backgroundRef.current || !videoRef.current) return;
-
-    // Reset background
-    gsap.to(backgroundRef.current, {
-      filter: "blur(0px)",
-      scale: 1,
-      duration: 0.4,
-      ease: "power3.inOut",
-      overwrite: "auto",
-    });
-
-    // Slide video back down
-    gsap.to(videoRef.current, {
-      yPercent: 100,
-      scale: 0,
-      duration: 0.6,
-      ease: "power3.in",
-      overwrite: "auto",
-      onComplete: () => {
-        if (videoRef.current) {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0; // reset playback
-        }
-      },
-    });
+    return () => mm.revert();
   }, []);
 
   return (
@@ -110,8 +130,6 @@ export default function Project({
       <div
         ref={projectRef}
         className="relative h-full w-full overflow-hidden flex flex-col cursor-pointer"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         {/* Parallax Background */}
         <div className="project-background relative w-full h-full overflow-hidden">

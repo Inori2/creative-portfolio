@@ -87,7 +87,7 @@ export default function Navbar({ isPreloaderDone }) {
         className="navbar sticky md:fixed w-screen p-5 grid grid-cols-12 gap-4 lg:gap-8 justify-center items-center overflow-visible h-fit z-49 bg-transparent top-0"
         ref={navbarContainer}
       >
-        <div className="hidden md:block col-span-3">
+        <div className="hidden lg:block col-span-3">
           <div className="block overflow-hidden">
             <span
               className="block font-primary text-base text-stone-700 font-semibold"
@@ -105,7 +105,7 @@ export default function Navbar({ isPreloaderDone }) {
             </span>
           </div>
         </div>
-        <div className="hidden md:block col-span-3">
+        <div className="hidden lg:block col-span-3">
           <div className="block overflow-hidden">
             <span
               className="block font-primary text-base text-stone-700 font-semibold"
