@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Background from "../../assets/images/project-img-1.jpg";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Project({
@@ -19,34 +20,29 @@ export default function Project({
   useEffect(() => {
     if (!projectRef.current || !backgroundRef.current || !infoBarRef.current)
       return;
-    /*gsap.set(backgroundRef.current, {
-      filter: "blur(0px) brightness(1)",
-      scale: 1,
-    });*/
+
+    // 🔹 Parallax scroll animation
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: projectRef.current,
-          start: "top bottom", // when section enters viewport
-          end: "bottom top", // when it leaves viewport
-          scrub: 0.4,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
         },
       });
 
-      // 🌟 Make background move slower
       tl.to(backgroundRef.current, { y: "-10%", ease: "none" }, 0);
-
-      // Foreground moves at normal speed or even faster
       tl.to(infoBarRef.current, { y: "-20%", ease: "none" }, 0);
     }, projectRef);
 
     return () => ctx.revert();
   }, []);
 
-  // 🔹 Hover effect handlers
+  // 🔹 Hover effect
   const handleMouseEnter = () => {
     gsap.to(backgroundRef.current, {
-      filter: "blur(4px)", // increase blur
+      filter: "blur(4px)",
       scale: 1.05,
       duration: 0.6,
       ease: "expo.out",
@@ -55,7 +51,7 @@ export default function Project({
 
   const handleMouseLeave = () => {
     gsap.to(backgroundRef.current, {
-      filter: "blur(0px)", // reset blur
+      filter: "blur(0px)",
       scale: 1,
       duration: 0.6,
       ease: "expo.out",
@@ -63,15 +59,15 @@ export default function Project({
   };
 
   return (
-    <a href={Url} target="_blank">
+    <a href={Url} target="_blank" rel="noopener noreferrer">
       <div
         ref={projectRef}
-        className="relative h-full w-full overflow-hidden flex flex-col"
+        className="relative h-full w-full overflow-hidden flex flex-col cursor-pointer"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {/* Parallax Background */}
-        <div className="relative w-full h-full overflow-hidden">
+        <div className="project-background relative w-full h-full overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
             <div
               ref={backgroundRef}
@@ -80,7 +76,7 @@ export default function Project({
             ></div>
           </div>
 
-          {/* Video stays fixed in the middle */}
+          {/* Video */}
           <div className="relative z-10 flex justify-center items-center h-full">
             <div className="project-detail w-2/3 overflow-hidden aspect-video bg-red-500">
               <video

@@ -13,11 +13,48 @@ export default function Works() {
       ".projects-container"
     );
 
+    projects.forEach((project, i) => {
+      // Target ONLY the background container inside each project
+      const background = project.querySelector(".project-background");
+      if (!background) return;
+
+      // Create overlay element
+      const overlay = document.createElement("div");
+      overlay.classList.add("overlay");
+      background.appendChild(overlay); // Add INSIDE background only
+
+      // Initial black overlay fully covering background
+      gsap.set(overlay, {
+        autoAlpha: 1,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#000",
+        zIndex: 10,
+      });
+
+      // Reveal animation
+      gsap.to(overlay, {
+        autoAlpha: 0, // fade out completely
+        ease: "power3.out",
+        duration: 0.4,
+        scrollTrigger: {
+          trigger: project,
+          start: "top-=50 80%",
+          once: true,
+        },
+        delay: i * 0.1, // stagger reveal
+      });
+    });
+
+    // Floating stagger effect for the project cards
     gsap.to(projects, {
       y: (i) => 80 - i * 25,
       ease: "none",
       stagger: {
-        each: 0.1, // <--- right column moves first
+        each: 0.1,
       },
       scrollTrigger: {
         trigger: projectsRef.current,
@@ -48,7 +85,7 @@ export default function Works() {
           ref={projectsRef}
         >
           <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[600px]">
-            <Project Name={"Project 1"} Category={"123"} />
+            <Project />
           </div>
           <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[800px]">
             <Project />
