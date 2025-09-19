@@ -73,7 +73,7 @@ export default function Project({
           const handleMouseEnter = () => {
             vidEl.play();
             gsap.to(bgEl, {
-              filter: "blur(4px)",
+              filter: "blur(8px)",
               scale: 1.05,
               duration: 0.4,
               ease: "power3.out",
