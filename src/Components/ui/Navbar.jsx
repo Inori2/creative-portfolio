@@ -2,7 +2,7 @@ import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import { useEffect, useRef } from "react";
 gsap.registerPlugin(SplitText);
-
+import TimezoneDisplay from "./TimezoneDisplay";
 import Menu from "./Menu";
 
 export default function Navbar({ isPreloaderDone }) {
@@ -121,6 +121,19 @@ export default function Navbar({ isPreloaderDone }) {
             >
               Open for collaboration
             </span>
+          </div>
+        </div>
+        <div className="hidden md:block col-span-3">
+          <div className="block overflow-hidden">
+            <span
+              className="block font-primary text-base text-stone-700 font-semibold"
+              ref={(el) => (topTextRefs.current[1] = el)}
+            >
+              Timezone
+            </span>
+          </div>
+          <div className="block overflow-hidden mix-blend-difference">
+            <TimezoneDisplay ref={(el) => (bottomTextRefs.current[1] = el)} />
           </div>
         </div>
         <Menu ref={menuRef} />

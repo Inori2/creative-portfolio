@@ -13,28 +13,25 @@ export default function Works() {
       ".projects-container"
     );
 
-    projects.forEach((project, index) => {
-      // Each project moves at a slightly different speed
-      const moveDistance = 150 - index * 20;
-      // Top project moves more, bottom project moves less
-
-      gsap.to(project, {
-        y: -moveDistance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: projectsRef.current, // section triggers the animation
-          start: "top bottom", // starts when section enters viewport
-          end: "bottom top", // ends when section leaves viewport
-          scrub: true, // smooth scroll-tied animation
-        },
-      });
+    gsap.to(projects, {
+      y: (i) => 80 - i * 25,
+      ease: "none",
+      stagger: {
+        each: 0.1, // <--- right column moves first
+      },
+      scrollTrigger: {
+        trigger: projectsRef.current,
+        start: "top 80%",
+        end: "bottom top",
+        scrub: true,
+      },
     });
   }, []);
 
   return (
     <section id="works">
-      <div className="w-screen h-fit bg-stone-50 px-5 py-10">
-        {/* Heading and paragraph - stays fixed */}
+      <div className="w-screen h-fit bg-stone-50 lg:px-5 lg:py-10">
+        {/* Heading & paragraph - stays fixed */}
         <div className="content-wrapper h-fit w-full flex flex-col gap-4 pb-20">
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">
             {"recent works".toUpperCase()}
@@ -45,24 +42,24 @@ export default function Works() {
           </p>
         </div>
 
-        {/* Parallax containers */}
+        {/* Project containers */}
         <div
-          className="projects-wrapper lg:grid lg:grid-cols-12 gap-x-5 gap-y-40"
+          className="projects-wrapper flex flex-col gap-20 lg:grid lg:grid-cols-12 lg:gap-x-5 lg:gap-y-40"
           ref={projectsRef}
         >
-          <div className="projects-container col-span-6 w-full h-[600px]">
+          <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[600px]">
+            <Project Name={"Project 1"} Category={"123"} />
+          </div>
+          <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[800px]">
             <Project />
           </div>
-          <div className="projects-container col-span-6 w-full h-[800px]">
+          <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[800px]">
             <Project />
           </div>
-          <div className="projects-container col-span-6 w-full h-[800px]">
+          <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[500px] lg:pl-20 lg:mt-20">
             <Project />
           </div>
-          <div className="projects-container col-span-6 w-full h-[500px] pl-20">
-            <Project />
-          </div>
-          <div className="projects-container col-span-6 w-full h-[500px] px-20">
+          <div className="projects-container will-change-transform col-span-6 w-full h-[500px] md:h-[700px] lg:h-[500px] lg:px-20">
             <Project />
           </div>
         </div>
