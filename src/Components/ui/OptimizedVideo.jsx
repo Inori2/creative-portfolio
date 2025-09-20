@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import gsap from "gsap";
 
 export default function OptimizedVideo({ videoRef, src }) {
-  const [isVisible, setIsVisible] = useState(true);
   const [videoSrc, setVideoSrc] = useState(src); // dynamically attach/remove video source
 
   useEffect(() => {
@@ -17,18 +17,43 @@ export default function OptimizedVideo({ videoRef, src }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Show video and reload src
-          setIsVisible(true);
-          setVideoSrc(src); // Re-attach video source
+          // Re-attach video source
+          setVideoSrc(src);
 
           video.play().catch((err) => console.warn("Autoplay blocked:", err));
+
+          /** 🔹 Animate video on reveal */
+          gsap.fromTo(
+            video,
+            {
+              yPercent: 20, // start slightly below
+              scale: 0.85, // slightly scaled down
+              opacity: 0,
+              transformOrigin: "bottom center",
+            },
+            {
+              yPercent: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 1,
+              ease: "expo.out",
+            }
+          );
         } else {
-          // Hide and completely unload video
-          setIsVisible(false);
-          video.pause();
-          video.removeAttribute("src"); // unload video resource
-          video.load(); // reset internal state
-          setVideoSrc(null); // clear state
+          /** 🔹 Animate hide before unloading */
+          gsap.to(video, {
+            yPercent: 20,
+            scale: 0.85,
+            opacity: 0,
+            duration: 0.6,
+            ease: "expo.in",
+            onComplete: () => {
+              video.pause();
+              video.removeAttribute("src"); // unload video resource
+              video.load(); // reset internal state
+              setVideoSrc(null);
+            },
+          });
         }
       },
       { threshold: 0.25 }
@@ -41,15 +66,13 @@ export default function OptimizedVideo({ videoRef, src }) {
   return (
     <video
       ref={videoRef}
-      className={`aspect-video rounded-2xl transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className="aspect-video rounded-2xl will-change-transform"
       src={videoSrc || undefined}
       autoPlay
       muted
       loop
       playsInline
-      preload="none" // 🚀 prevent preloading resources until needed
+      preload="none" // 🚀 prevents preloading until visible
     />
   );
 }
