@@ -1,46 +1,72 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 
 export default function OptimizedVideo({ videoRef, src }) {
-  const [videoSrc, setVideoSrc] = useState(src); // dynamically attach/remove video source
+  const [videoSrc, setVideoSrc] = useState(src); // Only dynamic on mobile
+  const loadTimeoutRef = useRef(null); // store timeout so we can clear it
+
+  const LOAD_DELAY = 200; // 500ms = 0.5s delay before loading
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // ✅ Only run IntersectionObserver for mobile/tablet
+    // ✅ Check device
     const isDesktop = window.matchMedia(
       "(pointer: fine) and (min-width: 1024px)"
     ).matches;
-    if (isDesktop) return; // Skip observer on desktop
 
+    // 💻 Desktop -> Keep normal behavior
+    if (isDesktop) {
+      video.src = src;
+      return;
+    }
+
+    // 📱 Mobile / Tablet -> Optimize with IntersectionObserver
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Re-attach video source
-          setVideoSrc(src);
+          // Delay before starting to load video
+          loadTimeoutRef.current = setTimeout(() => {
+            setVideoSrc(src);
 
-          video.play().catch((err) => console.warn("Autoplay blocked:", err));
+            // Wait until metadata is loaded before animating
+            const handleLoadedData = () => {
+              video
+                .play()
+                .catch((err) => console.warn("Autoplay blocked:", err));
 
-          /** 🔹 Animate video on reveal */
-          gsap.fromTo(
-            video,
-            {
-              yPercent: 20, // start slightly below
-              scale: 0.85, // slightly scaled down
-              opacity: 0,
-              transformOrigin: "bottom center",
-            },
-            {
-              yPercent: 0,
-              scale: 1,
-              opacity: 1,
-              duration: 1,
-              ease: "expo.out",
-            }
-          );
+              /** Animate video reveal AFTER load */
+              gsap.fromTo(
+                video,
+                {
+                  yPercent: 20,
+                  scale: 0.85,
+                  opacity: 0,
+                  transformOrigin: "bottom center",
+                },
+                {
+                  yPercent: 0,
+                  scale: 1,
+                  opacity: 1,
+                  duration: 1,
+                  ease: "expo.out",
+                }
+              );
+
+              video.removeEventListener("loadeddata", handleLoadedData);
+            };
+
+            video.addEventListener("loadeddata", handleLoadedData);
+          }, LOAD_DELAY); // <-- delay here
         } else {
-          /** 🔹 Animate hide before unloading */
+          // Cancel pending load if user scrolls away quickly
+          if (loadTimeoutRef.current) {
+            clearTimeout(loadTimeoutRef.current);
+            loadTimeoutRef.current = null;
+          }
+
+          /** Animate hide BEFORE unloading */
           gsap.to(video, {
             yPercent: 20,
             scale: 0.85,
@@ -48,9 +74,10 @@ export default function OptimizedVideo({ videoRef, src }) {
             duration: 0.6,
             ease: "expo.in",
             onComplete: () => {
+              // Once animation ends, pause & unload
               video.pause();
-              video.removeAttribute("src"); // unload video resource
-              video.load(); // reset internal state
+              video.removeAttribute("src");
+              video.load();
               setVideoSrc(null);
             },
           });
@@ -60,7 +87,12 @@ export default function OptimizedVideo({ videoRef, src }) {
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (loadTimeoutRef.current) {
+        clearTimeout(loadTimeoutRef.current);
+      }
+    };
   }, [videoRef, src]);
 
   return (
@@ -72,7 +104,7 @@ export default function OptimizedVideo({ videoRef, src }) {
       muted
       loop
       playsInline
-      preload="none" // 🚀 prevents preloading until visible
+      preload="none" // 🚀 Mobile won't preload until visible
     />
   );
 }
