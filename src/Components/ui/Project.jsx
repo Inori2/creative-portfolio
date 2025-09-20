@@ -3,6 +3,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Background from "/assets/images/project-img-1.jpg";
 import VideoDefault from "/assets/videos/hero-video-compressed.mp4";
+import OptimizedVideo from "./OptimizedVideo";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Project({
@@ -161,18 +162,20 @@ export default function Project({
           {/* Video */}
           <div className="relative z-10 flex justify-center items-center h-full">
             <div className="project-detail w-2/3 overflow-hidden aspect-video">
-              {Video && (
+              {Video && <OptimizedVideo src={Video} videoRef={videoRef} />}
+              {/* {Video && (
                 <video
                   ref={videoRef}
                   className="aspect-video"
                   src={Video}
                   muted
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="auto"
+                  // loop
+                  // playsInline
+                  // autoPlay
+                  preload="metadata" // ✅ Loads only video metadata, not full video
+                  // poster="/assets/videos/placeholder.jpg" // ✅ Static preview image
                 />
-              )}
+              )} */}
             </div>
           </div>
         </div>
