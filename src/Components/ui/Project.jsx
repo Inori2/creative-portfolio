@@ -206,7 +206,7 @@ export default function Project({
             {Name.toUpperCase()}
           </span>
           <div className="h-1/2 overflow-hidden">
-            <div ref={linkRef} className="flex flex-col">
+            <div ref={linkRef} className="flex flex-col-reverse lg:flex-col">
               <span className="font-primary font-medium text-xl text-right">
                 {Year}
               </span>
