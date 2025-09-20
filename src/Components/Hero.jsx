@@ -22,7 +22,10 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
 
   const hoverAnim = useRef(null); // GSAP animation instance
   const reverseTimeout = useRef(null);
+
   function handleMouseEnter() {
+    if (window.innerWidth < 768) return; // Disable hover for mobile (Tailwind md breakpoint)
+
     if (reverseTimeout.current) {
       clearTimeout(reverseTimeout.current); // Cancel any scheduled reverse
     }
@@ -42,6 +45,8 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
   }
 
   function handleMouseLeave() {
+    if (window.innerWidth < 768) return; // Disable hover for mobile (Tailwind md breakpoint)
+
     if (hoverAnim.current) {
       // Delay before reversing to prevent accidental flickers
       reverseTimeout.current = setTimeout(() => {

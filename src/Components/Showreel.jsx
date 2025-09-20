@@ -56,7 +56,7 @@ export default function Showreel({ isPreloaderDone }) {
           // Mobile settings - NO SCALE
           gsap.set(videoWrapperRef.current, {
             transformOrigin: "top right",
-            translateY: "-100svh",
+            translateY: "0svh",
           });
         } else if (tablet) {
           // Tablet settings - NO SCALE
@@ -191,9 +191,9 @@ export default function Showreel({ isPreloaderDone }) {
   }, [isPreloaderDone]);
 
   return (
-    <section ref={showcaseRef}>
+    <section ref={showcaseRef} className="hidden md:block">
       <div
-        className="bg-stone-50 h-0 lg:h-screen w-screen p-5 relative overflow-visible"
+        className="bg-stone-50 lg:h-screen w-screen p-5 relative overflow-visible"
         ref={videoContainerRef}
       >
         <div
