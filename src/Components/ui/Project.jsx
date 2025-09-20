@@ -21,13 +21,33 @@ export default function Project({
 
   /** 🔹 Parallax Effect */
   useEffect(() => {
-    if (!projectRef.current || !backgroundRef.current || !infoBarRef.current)
+    if (
+      !projectRef.current ||
+      !backgroundRef.current ||
+      !infoBarRef.current ||
+      !videoRef.current
+    )
       return;
-    gsap.set(videoRef.current, {
-      yPercent: 100,
-      scale: 0,
-      transformOrigin: "center bottom",
-    });
+
+    const isDesktop = window.matchMedia(
+      "(pointer: fine) and (min-width: 1024px)"
+    ).matches;
+
+    // ✅ Desktop: hide video initially
+    if (isDesktop) {
+      gsap.set(videoRef.current, {
+        yPercent: 100,
+        scale: 0,
+        transformOrigin: "center bottom",
+      });
+    } else {
+      // ✅ Mobile: show video by default
+      gsap.set(videoRef.current, {
+        yPercent: 0,
+        scale: 1,
+      });
+    }
+
     const ctx = gsap.context(() => {
       gsap
         .timeline({
@@ -45,7 +65,7 @@ export default function Project({
     return () => {
       ctx.revert();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    }; // kill any leftover scroll triggers
+    };
   }, []);
 
   /** 🔹 Hover Animations with GSAP MatchMedia */
@@ -62,7 +82,7 @@ export default function Project({
         isMobile: "(pointer: coarse) or (max-width: 1023px)",
       },
       (context) => {
-        const { isDesktop, isMobile } = context.conditions;
+        const { isDesktop } = context.conditions;
         const vidEl = videoRef.current;
         const bgEl = backgroundRef.current;
         const projectEl = projectRef.current;
@@ -77,8 +97,14 @@ export default function Project({
           });
 
           const handleMouseEnter = () => {
+            if (!vidEl) return;
             gsap.killTweensOf([vidEl, bgEl, linkEl]);
-            vidEl.play();
+
+            // ✅ Safe play attempt
+            vidEl.play().catch((err) => {
+              console.warn("Video play was blocked:", err);
+            });
+
             gsap.to(bgEl, {
               filter: "blur(8px)",
               scale: 1.05,
@@ -99,7 +125,9 @@ export default function Project({
           };
 
           const handleMouseLeave = () => {
+            if (!vidEl) return;
             gsap.killTweensOf([vidEl, bgEl, linkEl]);
+
             gsap.to(bgEl, {
               filter: "blur(0px)",
               scale: 1,
@@ -132,10 +160,12 @@ export default function Project({
           };
         }
 
-        if (isMobile) {
+        {
+          /*if (isMobile) {
           // Mobile & tablet: show video by default
           gsap.set(vidEl, { yPercent: 0, scale: 1 });
           vidEl.play();
+        }*/
         }
       }
     );
@@ -163,19 +193,6 @@ export default function Project({
           <div className="relative z-10 flex justify-center items-center h-full">
             <div className="project-detail w-2/3 overflow-hidden aspect-video">
               {Video && <OptimizedVideo src={Video} videoRef={videoRef} />}
-              {/* {Video && (
-                <video
-                  ref={videoRef}
-                  className="aspect-video"
-                  src={Video}
-                  muted
-                  // loop
-                  // playsInline
-                  // autoPlay
-                  preload="metadata" // ✅ Loads only video metadata, not full video
-                  // poster="/assets/videos/placeholder.jpg" // ✅ Static preview image
-                />
-              )} */}
             </div>
           </div>
         </div>

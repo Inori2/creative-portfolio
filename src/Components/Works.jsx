@@ -11,52 +11,50 @@ export default function Works() {
   useEffect(() => {
     if (!projectsRef.current) return;
 
-    // Only run on tablet and desktop (e.g., min-width 768px)
-    const isDesktopOrTablet = window.innerWidth >= 768;
-    if (!isDesktopOrTablet) return;
+    const mm = gsap.matchMedia();
+    const projects = projectsRef.current.querySelectorAll(
+      ".projects-container"
+    );
+    const createdOverlays = [];
 
-    const ctx = gsap.context(() => {
-      const projects = projectsRef.current.querySelectorAll(
-        ".projects-container"
-      );
-      const createdOverlays = [];
+    /** 🔹 Overlay Reveal (Runs on ALL devices) */
+    projects.forEach((project, i) => {
+      const background = project.querySelector(".project-background");
+      if (!background) return;
 
-      projects.forEach((project, i) => {
-        const background = project.querySelector(".project-background");
-        if (!background) return;
+      // Create overlay element
+      const overlay = document.createElement("div");
+      overlay.classList.add("overlay");
+      background.appendChild(overlay);
+      createdOverlays.push(overlay);
 
-        // Create overlay
-        const overlay = document.createElement("div");
-        overlay.classList.add("overlay");
-        background.appendChild(overlay);
-        createdOverlays.push(overlay);
-
-        gsap.set(overlay, {
-          autoAlpha: 1,
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#000",
-          zIndex: 10,
-        });
-
-        // Reveal animation
-        gsap.to(overlay, {
-          autoAlpha: 0,
-          ease: "power3.out",
-          duration: 0.4,
-          scrollTrigger: {
-            trigger: project,
-            start: "top-=100 80%",
-            once: true,
-          },
-          delay: i * 0.1,
-        });
+      gsap.set(overlay, {
+        autoAlpha: 1,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#000",
+        zIndex: 10,
       });
 
-      // Floating stagger effect (optional: can run on all screen sizes)
+      // Reveal animation
+      gsap.to(overlay, {
+        autoAlpha: 0,
+        ease: "power3.out",
+        duration: 0.4,
+        scrollTrigger: {
+          trigger: project,
+          start: "top-=100 80%",
+          once: true,
+        },
+        delay: i * 0.1,
+      });
+    });
+
+    /** 🔹 Parallax Floating Effect (Desktop ONLY) */
+    mm.add("(min-width: 1024px)", () => {
       gsap.to(projects, {
         y: (i) => 80 - i * 25,
         ease: "none",
@@ -69,14 +67,16 @@ export default function Works() {
         },
       });
 
-      // Cleanup
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-        createdOverlays.forEach((overlay) => overlay.remove());
       };
-    }, projectsRef);
+    });
 
-    return () => ctx.revert();
+    /** Cleanup */
+    return () => {
+      mm.revert();
+      createdOverlays.forEach((overlay) => overlay.remove());
+    };
   }, []);
 
   return (
