@@ -11,6 +11,10 @@ export default function Works() {
   useEffect(() => {
     if (!projectsRef.current) return;
 
+    // Only run on tablet and desktop (e.g., min-width 768px)
+    const isDesktopOrTablet = window.innerWidth >= 768;
+    if (!isDesktopOrTablet) return;
+
     const ctx = gsap.context(() => {
       const projects = projectsRef.current.querySelectorAll(
         ".projects-container"
@@ -21,13 +25,12 @@ export default function Works() {
         const background = project.querySelector(".project-background");
         if (!background) return;
 
-        // ✅ Create and track overlay for cleanup later
+        // Create overlay
         const overlay = document.createElement("div");
         overlay.classList.add("overlay");
         background.appendChild(overlay);
         createdOverlays.push(overlay);
 
-        // Initial state
         gsap.set(overlay, {
           autoAlpha: 1,
           position: "absolute",
@@ -46,14 +49,14 @@ export default function Works() {
           duration: 0.4,
           scrollTrigger: {
             trigger: project,
-            start: "top-=50 80%",
+            start: "top-=100 80%",
             once: true,
           },
           delay: i * 0.1,
         });
       });
 
-      // Floating stagger effect
+      // Floating stagger effect (optional: can run on all screen sizes)
       gsap.to(projects, {
         y: (i) => 80 - i * 25,
         ease: "none",
@@ -66,24 +69,21 @@ export default function Works() {
         },
       });
 
-      // ✅ Cleanup function
+      // Cleanup
       return () => {
-        // Kill all ScrollTrigger instances
         ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-
-        // Remove all overlays from DOM
         createdOverlays.forEach((overlay) => overlay.remove());
       };
     }, projectsRef);
 
-    return () => ctx.revert(); // Revert GSAP context safely
+    return () => ctx.revert();
   }, []);
 
   return (
     <section id="works">
       <div className="w-screen h-fit bg-stone-50 lg:px-5 lg:py-10">
         {/* Heading */}
-        <div className="content-wrapper h-fit w-full flex flex-col gap-4 pb-20">
+        <div className="content-wrapper h-fit w-full flex flex-col gap-4 py-20 px-5">
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">
             {"recent works".toUpperCase()}
           </h2>

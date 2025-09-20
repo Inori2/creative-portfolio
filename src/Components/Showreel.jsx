@@ -11,13 +11,34 @@ export default function Showreel({ isPreloaderDone }) {
   const videoWrapperRef = useRef(null);
   const videoScrollRef = useRef(null);
   const videoContainerRef = useRef(null);
-
+  const [isMobilePlaying, setIsMobilePlaying] = useState(false);
   const toggleMute = () => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
     }
   };
+
+  useEffect(() => {
+    const isDesktopOrTablet = window.innerWidth >= 768;
+
+    if (videoRef.current) {
+      videoRef.current.muted = true; // keep muted by default
+
+      if (isDesktopOrTablet) {
+        // Only play video on desktop/tablet
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn("Video autoplay prevented:", error);
+          });
+        }
+      } else {
+        // Mobile: ensure video is paused
+        videoRef.current.pause();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -138,6 +159,27 @@ export default function Showreel({ isPreloaderDone }) {
   }, []);
 
   useEffect(() => {
+    const isDesktopOrTablet = window.innerWidth >= 768;
+
+    if (videoRef.current) {
+      videoRef.current.muted = true; // Always start muted
+
+      if (isDesktopOrTablet) {
+        // Desktop / Tablet → play immediately
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn("Video autoplay prevented:", error);
+          });
+        }
+      } else {
+        // Mobile → pause until button is pressed
+        videoRef.current.pause();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isPreloaderDone || !videoScrollRef.current) return;
 
     gsap.from(videoWrapperRef.current, {
@@ -172,11 +214,58 @@ export default function Showreel({ isPreloaderDone }) {
               autoPlay
               className="w-full h-full pointer-events-none rounded-2xl md:rounded-4xl origin-bottom" // prevents blocking button clicks
             ></video>
+            {/* Mobile Play + Unmute button */}
+            {/* Mobile Play + Toggle button with GSAP animation */}
+            {window.innerWidth < 768 && !isMobilePlaying && (
+              <button
+                onClick={() => {
+                  if (!videoRef.current) return;
+
+                  videoRef.current.muted = false;
+                  videoRef.current.play();
+
+                  // GSAP animation for dissolve + slight scale
+                  gsap.to(".mobile-play-button", {
+                    scale: 0.95,
+                    opacity: 0,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    onComplete: () => {
+                      setIsMobilePlaying(true); // Hide button after animation
+                    },
+                  });
+                }}
+                className="mobile-play-button absolute top-1/2 left-1/2 z-20 flex items-center justify-center 
+               bg-stone-950/30 text-white text-base font-semibold rounded-full md:hidden 
+               font-primary p-6 h-20 w-20 -translate-x-1/2 -translate-y-1/2 leading-4"
+                style={{ backdropFilter: "blur(8px)" }}
+              >
+                Play Video
+              </button>
+            )}
+
+            {/* Clickable area to toggle play/pause */}
+            {window.innerWidth < 768 && (
+              <div
+                onClick={() => {
+                  if (!videoRef.current) return;
+
+                  if (videoRef.current.paused) {
+                    videoRef.current.play();
+                    setIsMobilePlaying(true);
+                  } else {
+                    videoRef.current.pause();
+                    setIsMobilePlaying(false);
+                  }
+                }}
+                className="absolute inset-0 z-0 cursor-pointer md:hidden"
+              />
+            )}
 
             {/* Full-area invisible button */}
             <button
               onClick={toggleMute}
-              className="absolute inset-0 z-10 cursor-pointer h-full"
+              className="absolute inset-0 z-10 cursor-pointer h-full hidden md:block"
               aria-label={isMuted ? "Unmute video" : "Mute video"}
             ></button>
           </div>

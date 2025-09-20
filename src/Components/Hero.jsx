@@ -54,6 +54,8 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
   useEffect(() => {
     if (!isPreloaderDone) return;
 
+    let split; // define here for cleanup
+
     const ctx = gsap.context(() => {
       if (headingRef.current.length > 0 && hoverRef.current) {
         gsap.from(headingRef.current, {
@@ -74,7 +76,7 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
       }
 
       if (paragraphRef.current) {
-        let split = SplitText.create(paragraphRef.current, {
+        split = SplitText.create(paragraphRef.current, {
           type: "lines",
           mask: "lines",
           autoSplit: true,
@@ -87,13 +89,13 @@ const Hero = forwardRef(function Hero({ isPreloaderDone }, ref) {
             });
           },
         });
-        return () => {
-          split.revert();
-        };
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert(); // revert GSAP context
+      if (split) split.revert(); // revert SplitText
+    };
   }, [isPreloaderDone]);
 
   useEffect(() => {
