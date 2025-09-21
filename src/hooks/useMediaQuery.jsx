@@ -1,0 +1,17 @@
+import { useEffect, useState } from "react";
+
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const updateMatch = () => setMatches(media.matches);
+
+    updateMatch(); // Run once on mount
+    media.addEventListener("change", updateMatch);
+
+    return () => media.removeEventListener("change", updateMatch);
+  }, [query]);
+
+  return matches;
+}

@@ -5,7 +5,7 @@ export default function OptimizedVideo({ videoRef, src }) {
   const [videoSrc, setVideoSrc] = useState(src); // Only dynamic on mobile
   const loadTimeoutRef = useRef(null); // store timeout so we can clear it
 
-  const LOAD_DELAY = 200; // 500ms = 0.5s delay before loading
+  const LOAD_DELAY = 300; // 500ms = 0.5s delay before loading
 
   useEffect(() => {
     const video = videoRef.current;
