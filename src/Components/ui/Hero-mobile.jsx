@@ -16,6 +16,7 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const indicateRef = useRef(null);
   const sectionRef = useRef(null);
   const hoverRef = useRef(null);
+  const videoWrapperRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     indicate: indicateRef.current,
@@ -116,13 +117,24 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isPreloaderDone) return;
+
+    gsap.from(videoWrapperRef.current, {
+      clipPath: "inset(100% 0% 0% 0%)",
+      duration: 0.8,
+      delay: 0.1,
+      ease: "expo.out",
+    });
+  }, [isPreloaderDone]);
+
   return (
     <>
       <section id="index" className="z-10">
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
           <div className="md:hidden my-auto items-center">
-            <div className="overflow-hidden pb-20">
+            <div className="overflow-hidden pb-20" ref={videoWrapperRef}>
               {/* Video */}
               <video
                 src={Showreel}
