@@ -7,7 +7,6 @@ import Hero from "./Components/Hero";
 import Showreel from "./Components/Showreel";
 import Highlight from "./Components/Highlights";
 import Works from "./Components/Works";
-import HeroMobile from "./Components/ui/Hero-mobile";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);

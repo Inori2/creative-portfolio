@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import Project from "./ui/Project";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Button from "./ui/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -80,10 +81,13 @@ export default function Works() {
   }, []);
 
   return (
-    <section id="works">
+    <section
+      id="works"
+      className="flex flex-col justify-center items-center py-10"
+    >
       <div className="w-screen h-fit bg-stone-50 lg:px-5 lg:py-10">
         {/* Heading */}
-        <div className="content-wrapper h-fit w-full flex flex-col gap-4 py-20 px-5">
+        <div className="content-wrapper h-fit w-full flex flex-col gap-4 py-10 px-5">
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">
             {"recent works".toUpperCase()}
           </h2>
@@ -115,6 +119,7 @@ export default function Works() {
           </div>
         </div>
       </div>
+      <Button Text="Let's shape what's next." />
     </section>
   );
 }
