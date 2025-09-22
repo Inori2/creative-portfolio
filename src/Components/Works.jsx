@@ -85,9 +85,9 @@ export default function Works() {
       id="works"
       className="flex flex-col justify-center items-center py-10"
     >
-      <div className="w-screen h-fit bg-stone-50 lg:px-5 lg:py-10">
+      <div className="w-screen h-fit bg-stone-50 lg:px-5">
         {/* Heading */}
-        <div className="content-wrapper h-fit w-full flex flex-col gap-4 py-10 px-5">
+        <div className="content-wrapper h-fit w-full flex flex-col gap-4 pb-10 px-5">
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">
             {"recent works".toUpperCase()}
           </h2>
@@ -114,7 +114,7 @@ export default function Works() {
           <div className="projects-container col-span-6 w-full h-[500px] md:h-[700px] lg:h-[500px] lg:pl-20 lg:mt-20">
             <Project />
           </div>
-          <div className="projects-container col-span-6 w-full h-[500px] md:h-[700px] lg:h-[500px] lg:px-20">
+          <div className="projects-container col-span-6 w-full h-[500px] md:h-[700px] lg:h-[500px] lg:px-20 lg:ml-50">
             <Project />
           </div>
         </div>

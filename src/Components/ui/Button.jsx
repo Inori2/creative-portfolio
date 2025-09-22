@@ -72,11 +72,17 @@ export default function Button({
     }); */
   };
 
-  const handleMouseClick = () => {
+  const handleMouseClick = (e) => {
+    e.preventDefault();
+
     gsap.to(buttonRef.current, {
       scale: 0.95,
       duration: 0.3,
       ease: "expo.out",
+      onComplete: () => {
+        // Navigate AFTER animation
+        window.open(Link, "_blank", "noopener,noreferrer");
+      },
     });
   };
 
@@ -86,13 +92,13 @@ export default function Button({
       className="flex gap-4 items-center justify-center px-6 py-5 bg-stone-950 rounded-full text-stone-50 font-primary font-bold text-xl"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onMouseDown={handleMouseClick}
+      onClick={handleMouseClick}
       href={Link}
       target="_blank"
       rel="noopener noreferrer"
     >
       {/* Text Animation */}
-      <div className="link-container leading-none h-[1.25rem] overflow-hidden">
+      <div className="link-container h-[2rem] overflow-hidden">
         <div className="flex flex-col" ref={textRef}>
           <span>{Text}</span>
           <span>{Text}</span>
