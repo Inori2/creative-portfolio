@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import videoShowreel from "../../public/assets/videos/hero-video-compressed.mp4";
+import videoShowreel from "/videos/hero-video-compressed.mp4";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Showreel({ isPreloaderDone }) {

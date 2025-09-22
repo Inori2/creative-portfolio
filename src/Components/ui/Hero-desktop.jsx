@@ -192,9 +192,9 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                 className="block text-center md:text-right font-primary font-semibold text-xl lg:text-2xl tracking-tight text-stone-700"
                 ref={paragraphRef}
               >
-                Bridging the gap between ideas and reality, I help businesses
-                bring their boldest visions to life through seamless digital
-                experiences.
+                I help agencies and B2B brands bring ambitious ideas to life
+                through focused, goal-driven digital experiences that make a
+                measurable impact.
               </span>
             </div>
           </div>

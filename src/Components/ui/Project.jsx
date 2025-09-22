@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import Background from "/assets/images/project-img-1.jpg";
-import VideoDefault from "/assets/videos/hero-video-compressed.mp4";
+import Background from "/images/project-img-1.jpg";
+import VideoDefault from "/videos/hero-video-compressed.mp4";
 import OptimizedVideo from "./OptimizedVideo";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -174,13 +174,14 @@ export default function Project({
   }, []);
 
   return (
-    <a href={Url} target="_blank" rel="noopener noreferrer">
-      <div
-        ref={projectRef}
-        className="relative h-full w-full overflow-hidden flex flex-col cursor-pointer"
-      >
-        {/* Parallax Background */}
-        <div className="project-background relative w-full h-full overflow-hidden">
+    <div
+      ref={projectRef}
+      className="relative h-full w-full overflow-hidden flex flex-col cursor-pointer"
+    >
+      {/* Parallax Background */}{" "}
+      <div className="project-background relative w-full h-full overflow-hidden">
+        {" "}
+        <a href={Url} target="_blank" rel="noopener noreferrer">
           <div className="absolute inset-0 overflow-hidden">
             <div
               ref={backgroundRef}
@@ -188,53 +189,51 @@ export default function Project({
               style={{ backgroundImage: `url(${Image})` }}
             />
           </div>
-
           {/* Video */}
           <div className="relative z-10 flex justify-center items-center h-full">
             <div className="project-detail w-2/3 overflow-hidden aspect-video">
               {Video && <OptimizedVideo src={Video} videoRef={videoRef} />}
             </div>
-          </div>
-        </div>
-
-        {/* Info Bar */}
-        <div
-          ref={infoBarRef}
-          className="relative w-full flex justify-between items-center px-5 lg:px-0 py-4 z-20"
-        >
-          <span className="font-primary font-bold text-xl">
-            {Name.toUpperCase()}
-          </span>
-          <div className="h-1/2 overflow-hidden">
-            <div ref={linkRef} className="flex flex-col-reverse lg:flex-col">
-              <span className="font-primary font-medium text-xl text-right">
-                {Year}
+          </div>{" "}
+        </a>
+      </div>
+      {/* Info Bar */}
+      <div
+        ref={infoBarRef}
+        className="relative w-full flex justify-between items-center px-5 lg:px-0 py-4 z-20"
+      >
+        <span className="font-primary font-bold text-xl">
+          {Name.toUpperCase()}
+        </span>
+        <div className="h-1/2 overflow-hidden">
+          <div ref={linkRef} className="flex flex-col-reverse lg:flex-col">
+            <span className="font-primary font-medium text-xl text-right">
+              {Year}
+            </span>
+            <div className="flex gap-2 items-center">
+              <span className="font-primary font-semibold text-xl text-right">
+                View Project
               </span>
-              <div className="flex gap-2 items-center">
-                <span className="font-primary font-semibold text-xl text-right">
-                  View Project
-                </span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-[clamp(14px,1vw,24px)] h-[clamp(14px,1vw,24px)] text-stone-700"
-                  aria-hidden="true"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="m12 5 7 7-7 7"></path>
-                </svg>
-              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-[clamp(14px,1vw,24px)] h-[clamp(14px,1vw,24px)] text-stone-700"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
             </div>
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
