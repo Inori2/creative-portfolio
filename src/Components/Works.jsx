@@ -119,7 +119,10 @@ export default function Works() {
           </div>
         </div>
       </div>
-      <Button Text="Let's shape what's next." />
+      <Button
+        Text="Let's shape what's next."
+        Link="mailto:trannhatsang2000@gmail.com"
+      />
     </section>
   );
 }
