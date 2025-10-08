@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 export default function Button({
@@ -9,6 +9,11 @@ export default function Button({
   const textRef = useRef(null);
   const circleRef = useRef(null);
   const svgWrapperRef = useRef(null);
+
+  useEffect(() => {
+    const button = buttonRef.current;
+    window.addEventListener(button, "onClick");
+  }, []);
 
   const handleMouseEnter = () => {
     // Slide text

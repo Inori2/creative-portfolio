@@ -39,3 +39,7 @@
     @apply scroll-smooth;
   }
 }
+
+html::-webkit-scrollbar {
+  display: none;
+}
