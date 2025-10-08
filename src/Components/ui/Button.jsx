@@ -10,6 +10,23 @@ export default function Button({
   const circleRef = useRef(null);
   const svgWrapperRef = useRef(null);
 
+  useEffect(() => {
+    const btn = buttonRef.current;
+    if (!btn) return;
+
+    btn.addEventListener("mouseenter", handleMouseEnter);
+    btn.addEventListener("mouseleave", handleMouseLeave);
+    btn.addEventListener("mousedown", handleMouseClick);
+    btn.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      btn.removeEventListener("mouseenter", handleMouseEnter);
+      btn.removeEventListener("mouseleave", handleMouseLeave);
+      btn.removeEventListener("mousedown", handleMouseClick);
+      btn.removeEventListener("mouseup", onMouseUp);
+    };
+  }, []);
+
   const handleMouseEnter = () => {
     // Slide text
     gsap.to(textRef.current, {
@@ -32,13 +49,6 @@ export default function Button({
       duration: 0.8,
       ease: "expo.out",
     });
-
-    /*     // Scale button
-    gsap.to(buttonRef.current, {
-      scale: 1.05,
-      duration: 0.8,
-      ease: "expo.out",
-    }); */
   };
 
   const handleMouseLeave = () => {
