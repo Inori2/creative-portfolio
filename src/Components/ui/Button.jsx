@@ -10,11 +10,6 @@ export default function Button({
   const circleRef = useRef(null);
   const svgWrapperRef = useRef(null);
 
-  useEffect(() => {
-    const button = buttonRef.current;
-    window.addEventListener(button, "onClick");
-  }, []);
-
   const handleMouseEnter = () => {
     // Slide text
     gsap.to(textRef.current, {
