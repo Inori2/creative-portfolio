@@ -172,7 +172,10 @@ const Menu = forwardRef((props, ref) => {
               </a>
             ))}
           </div>
-          <a href="mailto:trannhatsang2000@gmail.com" className="px-4 pb-4">
+          <a
+            href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#97;&#110;&#110;&#104;&#97;&#116;&#115;&#97;&#110;&#103;&#50;&#48;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
+            className="px-4 pb-4"
+          >
             <button
               ref={buttonRef}
               className="mt-auto py-4 border bg-stone-50 rounded-xl font-primary font-semibold text-stone-700 hover:bg-stone-200 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
