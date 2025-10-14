@@ -117,7 +117,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
 
   return (
     <>
-      <section id="index" className="z-10">
+      <section id="index" className="z-10" ref={sectionRef}>
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
           <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-80 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">

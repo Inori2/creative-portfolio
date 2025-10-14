@@ -15,47 +15,11 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const paragraphRef = useRef(null);
   const indicateRef = useRef(null);
   const sectionRef = useRef(null);
-  const hoverRef = useRef(null);
   const videoWrapperRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     indicate: indicateRef.current,
   }));
-
-  const hoverAnim = useRef(null); // GSAP animation instance
-  const reverseTimeout = useRef(null);
-
-  function handleMouseEnter() {
-    if (window.innerWidth < 768) return; // Disable hover for mobile (Tailwind md breakpoint)
-
-    if (reverseTimeout.current) {
-      clearTimeout(reverseTimeout.current); // Cancel any scheduled reverse
-    }
-    // Create the animation only once
-    if (!hoverAnim.current) {
-      hoverAnim.current = gsap.to(hoverRef.current, {
-        scrambleText: {
-          text: "engineer".toUpperCase(),
-          chars: "upperCase",
-          speed: 5,
-        },
-        duration: 0.5,
-        paused: true, // start paused
-      });
-    }
-    hoverAnim.current.play(); // Play forward
-  }
-
-  function handleMouseLeave() {
-    if (window.innerWidth < 768) return; // Disable hover for mobile (Tailwind md breakpoint)
-
-    if (hoverAnim.current) {
-      // Delay before reversing to prevent accidental flickers
-      reverseTimeout.current = setTimeout(() => {
-        hoverAnim.current.reverse();
-      }, 150); // <-- tweak this delay (150ms feels natural)
-    }
-  }
 
   //Animation section
   useEffect(() => {
@@ -64,7 +28,7 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
     let split; // define here for cleanup
 
     const ctx = gsap.context(() => {
-      if (headingRef.current.length > 0 && hoverRef.current) {
+      if (headingRef.current.length > 0) {
         gsap.from(headingRef.current, {
           y: 150,
           autoAlpha: 0,
@@ -106,18 +70,6 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
   }, [isPreloaderDone]);
 
   useEffect(() => {
-    return () => {
-      if (hoverAnim.current) {
-        hoverAnim.current.kill();
-        hoverAnim.current = null;
-      }
-      if (reverseTimeout.current) {
-        clearTimeout(reverseTimeout.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     if (!isPreloaderDone) return;
 
     gsap.from(videoWrapperRef.current, {
@@ -130,10 +82,10 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
 
   return (
     <>
-      <section id="index" className="z-10">
+      <section id="index" className="z-10" ref={sectionRef}>
         <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
           {/* Main empty space */}
-          <div className="md:hidden my-auto items-center">
+          <div className="my-auto items-center">
             <div className="overflow-hidden pb-20" ref={videoWrapperRef}>
               {/* Video */}
               <video
@@ -148,7 +100,7 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
             <div className="text-center">
               <div className="w-full overflow-hidden">
                 <span
-                  className="font-secondary text-xl md:text-xl font-bold tracking-wide"
+                  className="font-secondary text-xl font-bold tracking-wide"
                   ref={addToHeadingRefs}
                 >
                   Just An Ordinary
@@ -156,26 +108,21 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-left"
+                  className="font-primary font-bold text-7xl tracking-tight text-center"
                   ref={addToHeadingRefs}
                 >
                   {"creative".toUpperCase()}
                 </h1>
               </div>
-              <div className="w-full w-max-[1024px] overflow-hidden">
+              <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-right"
-                  ref={(el) => {
-                    hoverRef.current = el;
-                    addToHeadingRefs(el);
-                  }}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
+                  className="font-primary font-bold text-7xl tracking-tight text-center"
+                  ref={addToHeadingRefs}
                 >
                   {"designer".toUpperCase()}
                 </h1>
                 <span
-                  className="font-secondary text-xl md:text-xl font-bold tracking-wide"
+                  className="font-secondary text-xl font-bold tracking-wide"
                   ref={addToHeadingRefs}
                 >
                   and a 5 to 9 developer :)
@@ -184,12 +131,12 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
             </div>
           </div>
           {/* Bottom line content */}
-          <div className="pb-40 md:pb-5 flex flex-col md:grid md:grid-cols-12 md:gap-10 justify-between items-end gap-4 md:py-5">
+          <div className="pb-40 flex flex-col justify-between items-end gap-4">
             {/* Left side: cool sh*t */}
-            <div className="overflow-hidden md:col-span-4">
+            <div className="overflow-hidden">
               <div
                 ref={indicateRef}
-                className="hidden md:flex items-center gap-1 text-stone-700 w-fit"
+                className="hidden"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -217,9 +164,9 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
             </div>
 
             {/* Right side text */}
-            <div className="w-full md:col-span-6 md:col-end-13 lg:col-span-4 lg:col-end-13">
+            <div className="w-full">
               <span
-                className="block text-center md:text-right font-primary font-semibold text-xl lg:text-2xl tracking-tight text-stone-700"
+                className="block text-center font-primary font-semibold text-xl tracking-tight text-stone-700"
                 ref={paragraphRef}
               >
                 I help agencies and B2B brands bring ambitious ideas to life
