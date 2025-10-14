@@ -118,13 +118,13 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
   return (
     <>
       <section id="index" className="z-10" ref={sectionRef}>
-        <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
+        <div className="bg-stone-50 w-screen h-screen flex flex-col px-5 mt-[-120px]">
           {/* Main empty space */}
           <div className="flex-1 md:grid md:grid-cols-12 md:gap-10 lg:gap-20 pt-80 md:pt-150 lg:pt-80 lg:pb-auto mb-auto">
             <div className="md:col-span-full lg:col-span-10 xl:col-span-8 text-center md:text-left lg:pr-20">
               <div className="w-full overflow-hidden">
                 <span
-                  className="font-secondary text-xl md:text-xl font-bold tracking-wide pl-3"
+                  className="font-secondary text-2xl font-bold tracking-wide pl-3"
                   ref={addToHeadingRefs}
                 >
                   Just An Ordinary
@@ -132,7 +132,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-left"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,9.5rem)] tracking-tight md:leading-30 text-center md:text-left"
                   ref={addToHeadingRefs}
                 >
                   {"creative".toUpperCase()}
@@ -140,7 +140,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
               </div>
               <div className="w-full w-max-[1024px] overflow-hidden">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,8rem)] tracking-tight md:leading-30 text-center md:text-right"
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,9.5rem)] tracking-tight md:leading-30 text-center md:text-right"
                   ref={(el) => {
                     hoverRef.current = el;
                     addToHeadingRefs(el);
