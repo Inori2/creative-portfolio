@@ -108,7 +108,7 @@ export default function Showreel({ isPreloaderDone }) {
             );
 
             // Interpolate between -35 (at scale 0.35) and 0 (at scale 1)
-            const minOffset = gsap.utils.interpolate(-38, 0, progress);
+            const minOffset = gsap.utils.interpolate(-35, 0, progress);
 
             const maxOffset = 0; // Always fixed downward boundary
             const clampedOffset = Math.max(
