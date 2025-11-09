@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import AboutVideo from "/videos/about-me-video.mp4";
+import Services from "./ui/Services";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP, SplitText);
 
@@ -32,7 +33,27 @@ export default function Highlight() {
                 </div>
               </div>
               <div className="about-video aspect-video">
-                <video src={AboutVideo} autoPlay playsInline loop muted></video>
+                <video
+                  className="rounded-2xl"
+                  src={AboutVideo}
+                  autoPlay
+                  playsInline
+                  loop
+                  muted
+                ></video>
+              </div>
+            </div>
+            <div className="grid-items col-span-7 col-start-6 flex flex-col">
+              <div className="top-content h-full flex flex-col gap-10">
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+              </div>
+              <div className="bottom-content w-full flex justify-end">
+                <span className="text-xs text-neutral-500 font-primary text-right">
+                  02 — ABOUT
+                </span>
               </div>
             </div>
           </div>

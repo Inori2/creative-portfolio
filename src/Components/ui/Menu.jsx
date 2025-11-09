@@ -108,13 +108,13 @@ const Menu = forwardRef((props, ref) => {
   return (
     <>
       <nav
-        className="menu relative p-4 border bg-stone-950 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13 border-stone-800"
+        className="menu relative p-4 border bg-neutral-900 rounded-2xl h-fit shadow-sm w-full col-span-full md:col-span-5 md:col-end-13 lg:col-span-3 lg:col-end-13 border-neutral-800 mix-blend-difference"
         ref={ref}
       >
         <div className="logo-container flex justify-between">
           <a
             href="/"
-            className="logo text-right font-primary font-bold text-stone-50 leading-none"
+            className="logo text-right font-primary font-bold text-neutral-50 leading-none"
           >
             Made by© <br /> Sang
           </a>
@@ -123,19 +123,19 @@ const Menu = forwardRef((props, ref) => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <div
-              className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
-                isMenuOpen ? "rotate-45 translate-y-[6px]" : ""
+              className={`w-6 h-0.5 bg-neutral-50 my-1 transition-all origin-center duration-300 ${
+                isMenuOpen ? "rotate-45 translate-y-1.5" : ""
               }`}
             ></div>
             <div
-              className={`w-6 h-0.5 bg-stone-50 my-1 transition-all origin-center duration-300 ${
-                isMenuOpen ? "-rotate-45 -translate-y-[4px]" : ""
+              className={`w-6 h-0.5 bg-neutral-50 my-1 transition-all origin-center duration-300 ${
+                isMenuOpen ? "-rotate-45 -translate-y-1" : ""
               }`}
             ></div>
           </div>
         </div>
         <div
-          className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-stone-950 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none border-stone-800"
+          className="overflow-hidden absolute left-0 top-full mt-4 w-full bg-neutral-900 rounded-2xl flex flex-col justify-between gap-20 border-0 shadow-none border-neutral-800"
           ref={menuContainerRef}
         >
           <div className="flex flex-col h-fit px-4 py-4">
@@ -159,12 +159,12 @@ const Menu = forwardRef((props, ref) => {
                 onMouseLeave={onLinkLeave}
                 className="block"
               >
-                <div className="overflow-hidden h-[2.5rem] mb-4">
+                <div className="overflow-hidden h-10 mb-4">
                   <div className="menu-item flex flex-col w-full">
-                    <span className="font-primary font-bold text-[2rem] text-stone-50">
+                    <span className="font-primary font-bold text-[2rem] text-neutral-50">
                       {item.toUpperCase()}
                     </span>
-                    <span className="font-primary font-bold text-[2rem] text-stone-50">
+                    <span className="font-primary font-bold text-[2rem] text-neutral-50">
                       {item.toUpperCase()}
                     </span>
                   </div>
@@ -178,7 +178,7 @@ const Menu = forwardRef((props, ref) => {
           >
             <button
               ref={buttonRef}
-              className="mt-auto py-4 border bg-stone-50 rounded-xl font-primary font-semibold text-stone-700 hover:bg-stone-200 hover:text-stone-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
+              className="mt-auto py-4 border bg-neutral-50 rounded-xl font-primary font-semibold text-neutral-700 hover:bg-neutral-200 hover:text-neutral-900 transition-colors duration-300 w-full text-center text-2xl cursor-pointer"
               onMouseDown={(e) =>
                 gsap.to(e.currentTarget, {
                   scale: 0.95,
