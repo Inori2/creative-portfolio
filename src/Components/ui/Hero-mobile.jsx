@@ -83,7 +83,7 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
   return (
     <>
       <section id="index" className="z-10" ref={sectionRef}>
-        <div className="bg-stone-50 w-screen h-[100svh] flex flex-col px-5">
+        <div className="bg-stone-50 w-screen h-svh flex flex-col px-5">
           {/* Main empty space */}
           <div className="my-auto items-center">
             <div className="overflow-hidden pb-20" ref={videoWrapperRef}>
@@ -134,10 +134,7 @@ const HeroMobile = forwardRef(function Hero({ isPreloaderDone }, ref) {
           <div className="pb-40 flex flex-col justify-between items-end gap-4">
             {/* Left side: cool sh*t */}
             <div className="overflow-hidden">
-              <div
-                ref={indicateRef}
-                className="hidden"
-              >
+              <div ref={indicateRef} className="hidden">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"

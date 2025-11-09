@@ -1,8 +1,8 @@
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
-import ScrambleTextPlugin from "gsap/ScrambleTextPlugin";
+import TextPlugin from "gsap/TextPlugin";
 import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-gsap.registerPlugin(SplitText, ScrambleTextPlugin);
+gsap.registerPlugin(SplitText, TextPlugin);
 
 const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const headingRef = useRef([]);
@@ -14,13 +14,15 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const paragraphRef = useRef(null);
   const indicateRef = useRef(null);
   const sectionRef = useRef(null);
-  const hoverRef = useRef(null);
+  const textRef = useRef(null); // Renamed from hoverRef for clarity
+  const cursorRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     indicate: indicateRef.current,
   }));
 
   const hoverAnim = useRef(null); // GSAP animation instance
+  const cursorBlinkAnim = useRef(null);
   const reverseTimeout = useRef(null);
 
   function handleMouseEnter() {
@@ -29,19 +31,9 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
     if (reverseTimeout.current) {
       clearTimeout(reverseTimeout.current); // Cancel any scheduled reverse
     }
-    // Create the animation only once
-    if (!hoverAnim.current) {
-      hoverAnim.current = gsap.to(hoverRef.current, {
-        scrambleText: {
-          text: "engineer".toUpperCase(),
-          chars: "upperCase",
-          speed: 5,
-        },
-        duration: 0.5,
-        paused: true, // start paused
-      });
-    }
-    hoverAnim.current.play(); // Play forward
+    gsap.set(cursorRef.current, { autoAlpha: 1 });
+    cursorBlinkAnim.current.restart();
+    hoverAnim.current.play();
   }
 
   function handleMouseLeave() {
@@ -51,6 +43,8 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
       // Delay before reversing to prevent accidental flickers
       reverseTimeout.current = setTimeout(() => {
         hoverAnim.current.reverse();
+        cursorBlinkAnim.current.pause();
+        gsap.set(cursorRef.current, { autoAlpha: 0 });
       }, 150); // <-- tweak this delay (150ms feels natural)
     }
   }
@@ -62,7 +56,34 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
     let split; // define here for cleanup
 
     const ctx = gsap.context(() => {
-      if (headingRef.current.length > 0 && hoverRef.current) {
+      // Blinking cursor animation
+      cursorBlinkAnim.current = gsap
+        .to(cursorRef.current, {
+          opacity: 0,
+          duration: 0.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power2.inOut",
+        })
+        .pause();
+      gsap.set(cursorRef.current, { autoAlpha: 0 });
+
+      // Text hover animation
+      if (!hoverAnim.current) {
+        const tl = gsap.timeline({ paused: true });
+        tl.to(textRef.current, {
+          text: "",
+          duration: 0.3,
+          ease: "none",
+        }).to(textRef.current, {
+          text: "engineer".toUpperCase(),
+          duration: 0.5,
+          ease: "none",
+        });
+        hoverAnim.current = tl;
+      }
+
+      if (headingRef.current.length > 0) {
         gsap.from(headingRef.current, {
           y: 150,
           autoAlpha: 0,
@@ -138,17 +159,17 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                   {"creative".toUpperCase()}
                 </h1>
               </div>
-              <div className="w-full w-max-[1024px] overflow-hidden">
+              <div className="w-full w-max-[1024px] overflow-hidden lg:pl-30">
                 <h1
-                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,9.5rem)] tracking-tight md:leading-30 text-center md:text-right"
-                  ref={(el) => {
-                    hoverRef.current = el;
-                    addToHeadingRefs(el);
-                  }}
+                  className="font-primary font-bold text-7xl md:text-9xl lg:text-[clamp(3rem,10vw,9.5rem)] tracking-tight md:leading-30 text-center md:text-left"
+                  ref={addToHeadingRefs}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  {"designer".toUpperCase()}
+                  <span ref={textRef}>{"designer".toUpperCase()}</span>
+                  <span ref={cursorRef} className="ml-1">
+                    |
+                  </span>
                 </h1>
               </div>
             </div>

@@ -109,7 +109,7 @@ export default function Button({
       href={Link}
     >
       {/* Text Animation */}
-      <div className="link-container h-[2rem] overflow-hidden">
+      <div className="link-container h-8 overflow-hidden">
         <div className="flex flex-col" ref={textRef}>
           <span>{Text}</span>
           <span>{Text}</span>
