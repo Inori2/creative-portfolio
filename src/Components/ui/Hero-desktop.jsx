@@ -77,7 +77,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
           ease: "none",
         }).to(textRef.current, {
           text: "engineer".toUpperCase(),
-          duration: 0.5,
+          duration: 0.3,
           ease: "none",
         });
         hoverAnim.current = tl;
@@ -167,7 +167,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                   onMouseLeave={handleMouseLeave}
                 >
                   <span ref={textRef}>{"designer".toUpperCase()}</span>
-                  <span ref={cursorRef} className="ml-1">
+                  <span ref={cursorRef} className="ml-1 text-neutral-900">
                     |
                   </span>
                 </h1>

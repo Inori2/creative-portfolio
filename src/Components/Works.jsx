@@ -84,9 +84,9 @@ export default function Works() {
   return (
     <section
       id="works"
-      className="flex flex-col justify-center items-center py-10"
+      className="flex flex-col justify-center items-center py-10 bg-neutral-50"
     >
-      <div className="w-screen h-fit bg-stone-50 lg:px-5">
+      <div className="w-screen h-fit lg:px-5">
         {/* Heading */}
         <div className="content-wrapper h-fit w-full flex flex-col gap-4 pb-10 px-5">
           <h2 className="font-primary font-bold text-8xl text-stone-950 tracking-tighter">

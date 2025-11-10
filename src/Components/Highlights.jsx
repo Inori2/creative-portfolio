@@ -8,8 +8,95 @@ import Services from "./ui/Services";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP, SplitText);
 
+const servicesData = [
+  {
+    number: "[01]",
+    services: "Web Design",
+    details:
+      "Building human-centered web experiences that look as good as they feel.",
+  },
+  {
+    number: "[02]",
+    services: "No Code Development",
+    details:
+      "Developing fully responsive websites using Webflow and other no-code tools, turning design ideas into live, interactive experiences.",
+  },
+  {
+    number: "[03]",
+    services: "Motion & Interaction",
+    details:
+      "Crafting smooth animations that support the story, guide attention, and create a sense of flow.",
+  },
+  {
+    number: "[04]",
+    services: "Art Direction",
+    details:
+      "Defining the overall visual tone, mood, and message to keep every element aligned and consistent.",
+  },
+];
+
 export default function Highlight() {
   const containerRef = useRef();
+  const servicesRefs = useRef([]);
+  servicesRefs.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !servicesRefs.current.includes(el)) {
+      servicesRefs.current.push(el);
+    }
+  };
+
+  useGSAP(
+    () => {
+      const allElements = servicesRefs.current.flatMap((container) => {
+        const selector = gsap.utils.selector(container);
+        return [
+          selector(".service-number"),
+          selector(".service-title"),
+          selector(".service-details"),
+        ];
+      });
+      gsap.set(allElements, { autoAlpha: 0 });
+
+      const allBorders = servicesRefs.current.map((c) =>
+        gsap.utils.selector(c)(".service-border")
+      );
+      gsap.set(allBorders, { scaleX: 0, transformOrigin: "left" });
+
+      servicesRefs.current.forEach((container, index) => {
+        const selector = gsap.utils.selector(container);
+        const numberEl = selector(".service-number");
+        const titleEl = selector(".service-title");
+        const detailsEl = selector(".service-details");
+        const borderEl = selector(".service-border");
+
+        servicesData[index];
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            toggleActions: "play none none none",
+            markers: true,
+          },
+        });
+
+        tl.to(numberEl, { autoAlpha: 1, duration: 0 })
+          .from(numberEl, { text: "", duration: 0.5, ease: "none" })
+          .to(titleEl, { autoAlpha: 1, duration: 0 })
+          .from(titleEl, { text: "", duration: 1, ease: "none" })
+          .to(detailsEl, { autoAlpha: 1, duration: 0 })
+          .from(detailsEl, {
+            text: "",
+            duration: 1.5,
+            ease: "none",
+          })
+          .to(borderEl, { scaleX: 1, duration: 1, ease: "power2.out" });
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
     <>
       <section className="z-10 lg:mt-0">
@@ -45,10 +132,18 @@ export default function Highlight() {
             </div>
             <div className="grid-items col-span-7 col-start-6 flex flex-col">
               <div className="top-content h-full flex flex-col gap-10">
-                <Services />
-                <Services />
-                <Services />
-                <Services />
+                {servicesData.map((service) => (
+                  <Services
+                    key={service.number}
+                    ref={addToRefs}
+                    number={service.number}
+                    services={service.services}
+                    details={service.details}
+                  />
+                ))}
+              </div>
+              <div className="services text-4xl text-neutral-50">
+                {"what I do".toUpperCase()}
               </div>
               <div className="bottom-content w-full flex justify-end">
                 <span className="text-xs text-neutral-500 font-primary text-right">

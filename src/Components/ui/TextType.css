@@ -1,0 +1,6 @@
+.text-type {
+  display: inline-block;
+}
+.text-type__cursor--hidden {
+  display: none;
+}
