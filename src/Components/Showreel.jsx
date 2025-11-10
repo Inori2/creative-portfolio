@@ -65,6 +65,31 @@ export default function Showreel({ isPreloaderDone }) {
             translateY: "-90vh",
           });
         } else if (desktop) {
+          // Create a timeline for the pinning and the exit animation
+          const pinTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: showcaseRef.current,
+              start: "top top",
+              end: "+=180%", // Pin for 200% of its height
+              pin: true,
+              pinSpacing: false,
+              scrub: true, // Make the animation scrubbed
+            },
+          });
+
+          // Add the scale down and move down animation to the pin timeline
+          // This animation will start at 50% of the pin's scroll progress
+          pinTimeline.to(
+            showcaseRef.current,
+            {
+              scale: 0.8,
+              yPercent: 20,
+              opacity: 0,
+              ease: "power1.inOut",
+            },
+            0.5
+          ); // Start this animation at 50% progress of the pinTimeline
+
           const baseY = -55;
           // Desktop settings - WITH SCALE
           gsap.set(videoWrapperRef.current, {
@@ -192,9 +217,9 @@ export default function Showreel({ isPreloaderDone }) {
   }, [isPreloaderDone]);
 
   return (
-    <section ref={showcaseRef} className="hidden md:block">
+    <section ref={showcaseRef} className="hidden md:block bg-neutral-50 z-5">
       <div
-        className="bg-stone-50 lg:h-screen w-screen p-5 relative overflow-visible"
+        className="h-[150vh] w-screen p-5 relative overflow-visible"
         ref={videoContainerRef}
       >
         <div
@@ -202,7 +227,7 @@ export default function Showreel({ isPreloaderDone }) {
           ref={videoScrollRef}
         >
           <div
-            className="video-wrapper overflow-hidden absolute top-0 left-0 w-full h-fit rounded-2xl md:rounded-4xl"
+            className="video-wrapper overflow-hidden sticky top-5 left-0 w-full h-fit rounded-2xl md:rounded-4xl"
             ref={videoWrapperRef}
           >
             {/* Video */}

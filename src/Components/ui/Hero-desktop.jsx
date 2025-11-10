@@ -148,7 +148,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                   className="font-secondary text-2xl font-bold tracking-wide pl-3"
                   ref={addToHeadingRefs}
                 >
-                  Just An Ordinary
+                  Just an Selftaught
                 </span>
               </div>
               <div className="w-full overflow-hidden">

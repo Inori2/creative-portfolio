@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/all";
@@ -37,6 +37,7 @@ const servicesData = [
 
 export default function Highlight() {
   const containerRef = useRef();
+  const highlightsSectionRef = useRef();
   const servicesRefs = useRef([]);
   servicesRefs.current = [];
 
@@ -70,14 +71,13 @@ export default function Highlight() {
         const detailsEl = selector(".service-details");
         const borderEl = selector(".service-border");
 
-        servicesData[index];
+        const service = servicesData[index];
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: container,
             start: "top top",
             toggleActions: "play none none none",
-            markers: true,
           },
         });
 
@@ -99,13 +99,13 @@ export default function Highlight() {
 
   return (
     <>
-      <section className="z-10 lg:mt-0">
-        <div className="w-screen h-[350vh] relative">
+      <section ref={highlightsSectionRef} className="z-99 lg:mt-0">
+        <div className="w-screen h-[250vh] relative">
           <div
             ref={containerRef}
-            className="bg-neutral-950 w-full h-screen sticky top-0 grid grid-cols-12 pt-30 pb-5 px-5 gap-5"
+            className="bg-neutral-950 w-full h-[130svh] lg:h-screen sticky top-0 lg:grid lg:grid-cols-12 pt-30 pb-5 px-5 gap-5 z-10"
           >
-            <div className="grid-items col-span-4 flex flex-col justify-between h-full">
+            <div className="grid-items lg:col-span-4 flex flex-col justify-between lg:h-full gap-5 sm:pb-5">
               <div className="container flex flex-col gap-3">
                 <div className="top-content flex gap-4 items-center">
                   <div className="circle h-3 w-3 bg-neutral-50 rounded-full"></div>
@@ -130,7 +130,7 @@ export default function Highlight() {
                 ></video>
               </div>
             </div>
-            <div className="grid-items col-span-7 col-start-6 flex flex-col">
+            <div className="grid-items lg:col-span-6 lg:col-start-7 flex flex-col">
               <div className="top-content h-full flex flex-col gap-10">
                 {servicesData.map((service) => (
                   <Services
@@ -141,9 +141,6 @@ export default function Highlight() {
                     details={service.details}
                   />
                 ))}
-              </div>
-              <div className="services text-4xl text-neutral-50">
-                {"what I do".toUpperCase()}
               </div>
               <div className="bottom-content w-full flex justify-end">
                 <span className="text-xs text-neutral-500 font-primary text-right">
