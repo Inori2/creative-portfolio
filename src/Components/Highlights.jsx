@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/all";
@@ -71,7 +71,7 @@ export default function Highlight() {
         const detailsEl = selector(".service-details");
         const borderEl = selector(".service-border");
 
-        const service = servicesData[index];
+        servicesData[index];
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -103,7 +103,7 @@ export default function Highlight() {
         <div className="w-screen h-[250vh] relative">
           <div
             ref={containerRef}
-            className="bg-neutral-950 w-full h-[130svh] lg:h-screen sticky top-0 lg:grid lg:grid-cols-12 pt-30 pb-5 px-5 gap-5 z-10"
+            className="bg-neutral-950 w-full h-fit lg:h-screen sticky top-0 lg:grid lg:grid-cols-12 pt-30 pb-5 px-5 gap-5 z-10"
           >
             <div className="grid-items lg:col-span-4 flex flex-col justify-between lg:h-full gap-5 sm:pb-5">
               <div className="container flex flex-col gap-3">
@@ -130,7 +130,7 @@ export default function Highlight() {
                 ></video>
               </div>
             </div>
-            <div className="grid-items lg:col-span-6 lg:col-start-7 flex flex-col">
+            <div className="grid-items lg:col-span-6 lg:col-start-7 flex flex-col pt-5 lg:pt-0">
               <div className="top-content h-full flex flex-col gap-10">
                 {servicesData.map((service) => (
                   <Services
