@@ -13,7 +13,7 @@ const Services = forwardRef(function Services(
       ref={ref}
       className="services-container relative flex flex-col lg:flex-row lg:gap-20 font-primary pb-7"
     >
-      <div className="flex gap-16 w-full">
+      <div className="flex gap-16 w-full lg:w-1/3">
         <span className="service-number text-neutral-500 text-base">
           {number}
         </span>
@@ -21,7 +21,7 @@ const Services = forwardRef(function Services(
           {services}
         </h3>
       </div>
-      <div className="w-full">
+      <div className="w-full lg:flex-1">
         <span className="service-details text-neutral-400 text-sm tracking-wide leading-5">
           {details}
         </span>

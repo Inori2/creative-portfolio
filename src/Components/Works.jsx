@@ -3,7 +3,8 @@ import Project from "./ui/Project";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Button from "./ui/Button";
-import Bgimg1 from "/public/images/project-img-2.jpg";
+import Bgimg1 from "/images/project-img-2.jpg";
+import Project1 from "/videos/project-1.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -109,6 +110,7 @@ export default function Works() {
               Year="2025"
               Url="https://do-tran.vercel.app"
               Image={Bgimg1}
+              Video={Project1}
             />
           </div>
           <div className="projects-container col-span-6 w-full h-[500px] md:h-[700px] lg:h-[800px]">

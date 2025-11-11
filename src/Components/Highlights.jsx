@@ -166,7 +166,7 @@ export default function Highlight() {
       // New animation for scrollTextRef
       const phrase1 = "02 — ABOUT";
       const phrase2 = "SCROLL FOR MORE";
-      const inactivityDelay = 5000; // 5 seconds of inactivity
+      const inactivityDelay = 2000; // 2 seconds of inactivity
 
       gsap.set(scrollTextRef.current, { text: "" }); // Set initial text to empty
 
@@ -208,7 +208,7 @@ export default function Highlight() {
         })
         .addLabel("deletePhrase2")
         .to(scrollTextRef.current, {
-          delay: 2, // Display phrase2 for 2 seconds
+          delay: 1, // Display phrase2 for 2 seconds
           text: "", // Delete phrase2
           duration: 1,
           ease: "none",
@@ -308,9 +308,9 @@ export default function Highlight() {
         <div className="w-screen h-[250vh] relative">
           <div
             ref={containerRef}
-            className="bg-neutral-950 w-full h-fit lg:h-screen sticky top-0 lg:grid lg:grid-cols-12 pt-30 pb-5 px-5 gap-5 z-10"
+            className="bg-neutral-950 w-full h-fit lg:min-h-dvh sticky top-0 lg:grid lg:grid-cols-12 pt-30 pb-5 px-5 gap-5 z-10"
           >
-            <div className="grid-items lg:col-span-4 flex flex-col justify-between lg:h-full gap-5 sm:pb-5">
+            <div className="grid-items lg:col-span-4 flex flex-col justify-between gap-5 sm:pb-5">
               <div className="container flex flex-col gap-3">
                 <div
                   ref={introTopContentRef}
@@ -352,8 +352,8 @@ export default function Highlight() {
                 ></video>
               </div>
             </div>
-            <div className="grid-items lg:col-span-6 lg:col-start-7 flex flex-col pt-5 lg:pt-0">
-              <div className="top-content h-full flex flex-col gap-10">
+            <div className="grid-items lg:col-span-6 lg:col-start-7 flex flex-col justify-between pt-5 lg:pt-0">
+              <div className="top-content flex flex-col gap-10">
                 {servicesData.map((service) => (
                   <Services
                     key={service.number}
