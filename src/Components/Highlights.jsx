@@ -236,7 +236,10 @@ export default function Highlight() {
         clearInactivityTimer();
         inactivityTimeoutRef.current = setTimeout(() => {
           // If currently typing phrase1, delete it and type phrase2
-          if (typingTimeline.currentLabel() === "typePhrase1" || typingTimeline.currentLabel() === "deletePhrase1") {
+          if (
+            typingTimeline.currentLabel() === "typePhrase1" ||
+            typingTimeline.currentLabel() === "deletePhrase1"
+          ) {
             typingTimeline.play("deletePhrase1");
           }
         }, inactivityDelay);
@@ -254,7 +257,11 @@ export default function Highlight() {
         clearInactivityTimer();
         // If we are in the middle of typing phrase2 or deleting phrase1/phrase2 due to inactivity,
         // we should revert to typing phrase1 and then restart the inactivity timer.
-        if (typingTimeline.currentLabel() === "deletePhrase1" || typingTimeline.currentLabel() === "typePhrase2" || typingTimeline.currentLabel() === "deletePhrase2") {
+        if (
+          typingTimeline.currentLabel() === "deletePhrase1" ||
+          typingTimeline.currentLabel() === "typePhrase2" ||
+          typingTimeline.currentLabel() === "deletePhrase2"
+        ) {
           typingTimeline.pause();
           gsap.to(scrollTextRef.current, {
             text: phrase1,
@@ -297,7 +304,7 @@ export default function Highlight() {
 
   return (
     <>
-      <section ref={highlightsSectionRef} className="z-99 lg:mt-0">
+      <section id="about" ref={highlightsSectionRef} className="z-99 lg:mt-0">
         <div className="w-screen h-[250vh] relative">
           <div
             ref={containerRef}
