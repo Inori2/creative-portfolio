@@ -148,7 +148,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                   className="font-secondary text-2xl font-bold tracking-wide pl-3"
                   ref={addToHeadingRefs}
                 >
-                  Just an Selftaught
+                  A self-taught
                 </span>
               </div>
               <div className="w-full overflow-hidden">
@@ -213,9 +213,8 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                 className="block text-center md:text-right font-primary font-semibold text-xl lg:text-2xl tracking-tight text-stone-700"
                 ref={paragraphRef}
               >
-                I help agencies and B2B brands bring ambitious ideas to life
-                through focused, goal-driven digital experiences that make a
-                measurable impact.
+                I help businesses build clear, goal-driven digital experiences
+                that make a difference.
               </span>
             </div>
           </div>
