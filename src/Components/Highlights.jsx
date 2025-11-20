@@ -11,19 +11,19 @@ gsap.registerPlugin(ScrollTrigger, useGSAP, SplitText, TextPlugin);
 const servicesData = [
   {
     number: "[01]",
-    services: "Web Design",
+    services: "Design",
     details:
       "Building human-centered web experiences that look as good as they feel.",
   },
   {
     number: "[02]",
-    services: "No Code Development",
+    services: "Development",
     details:
       "Developing fully responsive websites using Webflow and other no-code tools, turning design ideas into live, interactive experiences.",
   },
   {
     number: "[03]",
-    services: "Motion & Interaction",
+    services: "Interaction",
     details:
       "Crafting smooth animations that support the story, guide attention, and create a sense of flow.",
   },
@@ -161,6 +161,7 @@ export default function Highlight() {
           })
           .to(borderEl, { scaleX: 1, duration: 1, ease: "power2.out" });
       });
+
 
       // New animation for scrollTextRef
       const phrase1 = "02 — ABOUT";
