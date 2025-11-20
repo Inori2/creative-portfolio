@@ -18,29 +18,11 @@ export default function Works() {
     const projects = projectsRef.current.querySelectorAll(
       ".projects-container"
     );
-    const createdOverlays = [];
 
     /** 🔹 Overlay Reveal (Runs on ALL devices) */
     projects.forEach((project, i) => {
-      const background = project.querySelector(".project-background");
-      if (!background) return;
-
-      // Create overlay element
-      const overlay = document.createElement("div");
-      overlay.classList.add("overlay");
-      background.appendChild(overlay);
-      createdOverlays.push(overlay);
-
-      gsap.set(overlay, {
-        autoAlpha: 1,
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#000",
-        zIndex: 10,
-      });
+      const overlay = project.querySelector(".overlay");
+      if (!overlay) return;
 
       // Reveal animation
       gsap.to(overlay, {
@@ -78,7 +60,6 @@ export default function Works() {
     /** Cleanup */
     return () => {
       mm.revert();
-      createdOverlays.forEach((overlay) => overlay.remove());
     };
   }, []);
 

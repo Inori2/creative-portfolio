@@ -184,9 +184,20 @@ export default function Showreel({ isPreloaderDone }) {
     return () => mm.revert(); // Cleanup on component unmount
   }, []);
 
-  useEffect(() => {
-    const isDesktopOrTablet = window.innerWidth >= 768;
+  const [isDesktopOrTablet, setIsDesktopOrTablet] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= 768 : false
+  );
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktopOrTablet(window.innerWidth >= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.muted = true; // Always start muted
 
@@ -203,7 +214,7 @@ export default function Showreel({ isPreloaderDone }) {
         videoRef.current.pause();
       }
     }
-  }, []);
+  }, [isDesktopOrTablet]);
 
   useEffect(() => {
     if (!isPreloaderDone || !videoScrollRef.current) return;
@@ -242,7 +253,7 @@ export default function Showreel({ isPreloaderDone }) {
             ></video>
             {/* Mobile Play + Unmute button */}
             {/* Mobile Play + Toggle button with GSAP animation */}
-            {window.innerWidth < 768 && !isMobilePlaying && (
+            {!isDesktopOrTablet && !isMobilePlaying && (
               <button
                 onClick={() => {
                   if (!videoRef.current) return;
@@ -271,7 +282,7 @@ export default function Showreel({ isPreloaderDone }) {
             )}
 
             {/* Clickable area to toggle play/pause */}
-            {window.innerWidth < 768 && (
+            {!isDesktopOrTablet && (
               <div
                 onClick={() => {
                   if (!videoRef.current) return;

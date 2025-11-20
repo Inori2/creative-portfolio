@@ -40,7 +40,6 @@ export default function Highlight() {
   const highlightsSectionRef = useRef();
   const servicesRefs = useRef([]);
   const aboutVideoRef = useRef();
-  servicesRefs.current = [];
 
   const introTopContentRef = useRef(null);
   const introCircleRef = useRef(null);

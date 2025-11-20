@@ -188,6 +188,7 @@ export default function Project({
               className="w-full h-[120%] bg-cover bg-center will-change-transform"
               style={{ backgroundImage: `url(${Image})` }}
             />
+            <div className="overlay absolute inset-0 bg-black z-10 pointer-events-none"></div>
           </div>
           {/* Video */}
           <div className="relative z-10 flex justify-center items-center h-full">
