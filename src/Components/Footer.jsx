@@ -124,10 +124,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="w-full flex justify-between items-end mt-20 pt-5 border-t border-neutral-900">
         <div className="hidden lg:block w-1/3"></div>
-        <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3">
+        <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3 font-bold">
           '{currentYear.toString().slice(-2)} ALL RIGHT RESERVED
         </span>
-        <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3">
+        <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3 font-bold">
           MADE BY SANG
         </span>
       </div>

@@ -7,20 +7,18 @@ export default function TimezoneDisplay() {
     const updateTime = () => {
       const date = new Date();
 
-      // Get formatted time in hh:mm:ss AM/PM
+      // Get formatted time in hh:mm:ss AM/PM for GMT+11
+      // Note: In IANA time zone database, 'Etc/GMT-11' represents GMT+11
       const time = date.toLocaleTimeString("en-US", {
+        timeZone: "Etc/GMT-11",
         hour: "2-digit",
         minute: "2-digit",
-        second: "2-digit",
+        hour12: false,
       });
-
-      // Calculate timezone offset
-      const offset = -date.getTimezoneOffset() / 60; // convert to hours
-      const sign = offset >= 0 ? "+" : "-";
 
       setTimeInfo({
         time,
-        timezone: `GMT ${sign}${Math.abs(offset)}`,
+        timezone: "GMT+11",
       });
     };
 
@@ -30,9 +28,13 @@ export default function TimezoneDisplay() {
     return () => clearInterval(interval); // Cleanup
   }, []);
 
+  const [hours, minutes] = timeInfo.time.split(":");
+
   return (
     <span className="font-primary text-base text-stone-400 font-semibold">
-      {timeInfo.time} ({timeInfo.timezone})
+      Melbourne, AU {hours}
+      <span className="animate-blink">:</span>
+      {minutes}
     </span>
   );
 }

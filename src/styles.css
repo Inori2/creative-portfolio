@@ -53,3 +53,7 @@ html::-webkit-scrollbar {
   from, to { opacity: 1; }
   50% { opacity: 0; }
 }
+
+.animate-blink {
+  animation: blink-caret 1s step-end infinite;
+}

@@ -169,9 +169,10 @@ export default function DistortedText() {
             fontSize={4.5}
             color="#fafafa"
             font="/fonts/switzer/Switzer-Variable.ttf"
+            fontWeight={"medium"}
             anchorX="center"
             anchorY="middle"
-            letterSpacing={-0.05}
+            letterSpacing={-0.03}
           >
             {displayText}{isTyping && showCursor ? "_" : ""}
           </Text>
