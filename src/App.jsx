@@ -6,9 +6,10 @@ import Navbar from "./Components/ui/Navbar";
 import Hero from "./Components/Hero";
 import Showreel from "./Components/Showreel";
 import Highlight from "./Components/Highlights";
-import Process from "./Components/Process";
 import Works from "./Components/Works";
 import Footer from "./Components/Footer";
+import Process from "./Components/Process";
+import PixelTransition from "./Components/PixelTransition";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <Highlight />
         <Process />
         <Works />
+        <PixelTransition />
         <Footer />
       </ReactLenis>
     </>

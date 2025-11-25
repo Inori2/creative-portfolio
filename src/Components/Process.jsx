@@ -1,124 +1,93 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Html } from "@react-three/drei";
+import { TextPlugin } from "gsap/TextPlugin";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const processSteps = [
-  {
-    id: "01",
-    title: "Discovery",
-    description:
-      "We start by diving deep into your brand, goals, and audience to uncover the core problem.",
-    position: [0, 0, 1.51], // Front
-    rotation: [0, 0, 0],
-  },
-  {
-    id: "02",
-    title: "Strategy",
-    description:
-      "Crafting a roadmap that aligns creative vision with business objectives for maximum impact.",
-    position: [1.51, 0, 0], // Right
-    rotation: [0, Math.PI / 2, 0],
-  },
-  {
-    id: "03",
-    title: "Design",
-    description:
-      "Visualizing the concept with high-fidelity mockups, focusing on aesthetics and usability.",
-    position: [0, 0, -1.51], // Back
-    rotation: [0, Math.PI, 0],
-  },
-  {
-    id: "04",
-    title: "Development",
-    description:
-      "Bringing designs to life with clean, performant code and smooth, interactive animations.",
-    position: [-1.51, 0, 0], // Left
-    rotation: [0, -Math.PI / 2, 0],
-  },
-];
-
-function Cube({ rotationRef }) {
-  const meshRef = useRef(null);
-
-  useFrame(() => {
-    if (meshRef.current && rotationRef.current) {
-      // Smoothly interpolate rotation
-      meshRef.current.rotation.y = gsap.utils.interpolate(
-        meshRef.current.rotation.y,
-        rotationRef.current.rotationY,
-        0.1
-      );
-    }
-  });
-
-  return (
-    <Float speed={2} rotationIntensity={0.2} floatIntensity={0.2}>
-      <mesh ref={meshRef}>
-        <boxGeometry args={[3, 3, 3]} />
-        <meshStandardMaterial color="black" roughness={0.1} metalness={0.5} />
-        {processSteps.map((step) => (
-          <Html
-            key={step.id}
-            position={step.position}
-            rotation={step.rotation}
-            transform
-            occlude
-            distanceFactor={1.5}
-          >
-            <div className="flex flex-col gap-2 text-center select-none pointer-events-none">
-              <span className="font-secondary text-neutral-400 text-md tracking-wider">
-                ({step.id})
-              </span>
-              <h3 className="font-primary font-bold text-6xl text-white tracking-tighter">
-                {step.title.toUpperCase()}
-              </h3>
-              <p className="font-primary text-neutral-300 text-base leading-relaxed">
-                {step.description}
-              </p>
-            </div>
-          </Html>
-        ))}
-      </mesh>
-    </Float>
-  );
-}
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
 export default function Process() {
-  const triggerRef = useRef(null);
-  const rotationRef = useRef({ rotationY: 0 });
+    const containerRef = useRef(null);
+    const boxRef = useRef(null);
+    const scrollContainerRef = useRef(null);
+    const slide1Ref = useRef(null);
+    const textRef = useRef(null);
+    const cursorRef = useRef(null);
 
-  useEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: triggerRef.current,
-      start: "top top",
-      end: "+=4000", // Longer scroll distance for 4 steps
-      pin: true,
-      scrub: 1,
-      onUpdate: (self) => {
-        // Rotate -90 degrees (PI/2) for each step
-        // Total rotation = 3 steps * 90 deg = 270 deg
-        rotationRef.current.rotationY = -self.progress * (Math.PI / 2) * 3;
-      },
-    });
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            // Blinking cursor animation
+            gsap.fromTo(cursorRef.current, {
+                opacity: 1
+            }, {
+                opacity: 0,
+                repeat: -1,
+                yoyo: true,
+                duration: 0.5,
+                ease: "power2.inOut"
+            });
 
-    return () => {
-      trigger.kill();
-    };
-  }, []);
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "+=300%",
+                    scrub: true,
+                    pin: true,
+                }
+            });
 
-  return (
-    <section className="overflow-hidden bg-neutral-50 relative">
-      <div ref={triggerRef} className="h-screen w-full relative">
-        <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
-          <ambientLight intensity={2} />
-          <directionalLight position={[5, 5, 5]} intensity={2} />
-          <Cube rotationRef={rotationRef} />
-        </Canvas>
-      </div>
-    </section>
-  );
+            // Step 1: Expand the box and the first slide, and type text
+            tl.to(boxRef.current, {
+                width: "100vw",
+                height: "100vh",
+                duration: 1,
+                ease: "none",
+            })
+            .to(slide1Ref.current, {
+                width: "100vw",
+                duration: 1,
+                ease: "none",
+            }, "<")
+            .to(textRef.current, {
+                text: "MY WAY",
+                duration: 1,
+                ease: "none",
+            }, "<");
+
+            // Step 2: Horizontal Scroll
+            tl.to(scrollContainerRef.current, {
+                x: "-200vw",
+                ease: "none",
+            });
+
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section ref={containerRef} className="w-screen min-h-screen bg-neutral-950 justify-center items-center flex overflow-hidden">
+            <div ref={boxRef} className="w-[35vw] h-[35vw] bg-neutral-50 flex overflow-hidden relative">
+                {/* Scroll Container */}
+                <div ref={scrollContainerRef} className="flex flex-row h-full w-max">
+                    {/* Slide 1 (Initial) */}
+                    <div ref={slide1Ref} className="w-[35vw] h-full p-5 flex items-end flex-shrink-0 justify-between">
+                        <div className="font-primary font-medium text-neutral-400 text-base uppercase flex-shrink-0">04 — PROCESS</div>
+                        <div className="text-neutral-950 font-bold font-primary text-9xl flex items-end whitespace-nowrap">
+                            <span ref={textRef}></span>
+                            <span ref={cursorRef}>|</span>
+                        </div>
+                    </div>
+                    {/* Slide 2 */}
+                    <div className="w-[100vw] h-full flex-shrink-0 bg-neutral-50 p-5 flex items-center justify-center">
+                        <h2 className="text-neutral-950 text-4xl font-primary">Phase 1: Research</h2>
+                    </div>
+                    {/* Slide 3 */}
+                    <div className="w-[100vw] h-full flex-shrink-0 bg-neutral-50 p-5 flex items-center justify-center">
+                        <h2 className="text-neutral-950 text-4xl font-primary">Phase 2: Design</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
 }
