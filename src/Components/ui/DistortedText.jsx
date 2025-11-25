@@ -166,7 +166,7 @@ export default function DistortedText() {
           <PerspectiveCamera makeDefault position={[0, 0, 5]} />
           <color attach="background" args={["#0a0a0a"]} />
           <Text
-            fontSize={4.5}
+            fontSize={4.3}
             color="#fafafa"
             font="/fonts/switzer/Switzer-Variable.ttf"
             fontWeight={"medium"}
