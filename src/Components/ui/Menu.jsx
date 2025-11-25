@@ -139,7 +139,7 @@ const Menu = forwardRef((props, ref) => {
           ref={menuContainerRef}
         >
           <div className="flex flex-col h-fit px-4 py-4">
-            {["Index", "About", "Works", "Process"].map((item, i) => (
+            {["Index", "About","Process", "Works"].map((item, i) => (
               <a
                 href={`#${item.toLowerCase()}`}
                 key={i}

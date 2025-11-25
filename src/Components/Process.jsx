@@ -49,7 +49,7 @@ export default function Process() {
                 ease: "none",
             }, "<")
             .to(textRef.current, {
-                text: "MY WAY",
+                text: "MY PROCESS",
                 duration: 1,
                 ease: "none",
             }, "<");
@@ -66,13 +66,13 @@ export default function Process() {
     }, []);
 
     return (
-        <section ref={containerRef} className="w-screen min-h-screen bg-neutral-950 justify-center items-center flex overflow-hidden">
+        <section id="process" ref={containerRef} className="w-screen min-h-screen bg-neutral-950 justify-center items-center flex overflow-hidden">
             <div ref={boxRef} className="w-[35vw] h-[35vw] bg-neutral-50 flex overflow-hidden relative">
                 {/* Scroll Container */}
                 <div ref={scrollContainerRef} className="flex flex-row h-full w-max">
                     {/* Slide 1 (Initial) */}
                     <div ref={slide1Ref} className="w-[35vw] h-full p-5 flex items-end flex-shrink-0 justify-between">
-                        <div className="font-primary font-medium text-neutral-400 text-base uppercase flex-shrink-0">04 — PROCESS</div>
+                        <div className="font-primary font-medium text-neutral-400 text-base uppercase flex-shrink-0">04 — FROM START TO FINISH</div>
                         <div className="text-neutral-950 font-bold font-primary text-9xl flex items-end whitespace-nowrap">
                             <span ref={textRef}></span>
                             <span ref={cursorRef}>|</span>

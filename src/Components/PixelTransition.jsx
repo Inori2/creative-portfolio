@@ -12,14 +12,13 @@ export default function PixelTransition() {
             gsap.to(".square", {
                 opacity: 1,
                 duration: 0.5,
-                stagger: {
-                    amount: 1,
-                    from: "random",
-                    grid: [7, 12]
+                delay: (i) => {
+                    const row = Math.floor(i / 12);
+                    return (7 - row) * 0.1 + Math.random() * 0.5;
                 },
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "-=300px 50%",
+                    start: "-=200px 50%",
                     end: "bottom 50%",
                     scrub: 0.5,
                 }

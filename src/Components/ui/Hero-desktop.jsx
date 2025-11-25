@@ -16,6 +16,7 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
   const sectionRef = useRef(null);
   const textRef = useRef(null); // Renamed from hoverRef for clarity
   const cursorRef = useRef(null);
+  const arrowContainerRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
     indicate: indicateRef.current,
@@ -116,6 +117,48 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
           },
         });
       }
+
+      // Arrow scroll-down animation
+      if (arrowContainerRef.current) {
+        const arrows = arrowContainerRef.current.querySelectorAll('.arrow-icon');
+        
+        // Set initial positions: first arrow at 0, second arrow above container
+        gsap.set(arrows[0], { y: 0, opacity: 1 });
+        gsap.set(arrows[1], { y: -20, opacity: 1 });
+        
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 });
+        
+        // First arrow moves down and fades out
+        tl.to(arrows[0], {
+          y: 20,
+          opacity: 0,
+          duration: 1,
+          ease: "power1.in",
+        }, 0);
+        
+        // Second arrow moves down to replace first arrow
+        tl.to(arrows[1], {
+          y: 0,
+          duration: 1,
+          ease: "power1.in",
+        }, 0);
+        
+        // Second arrow moves down and fades out
+        tl.to(arrows[1], {
+          y: 20,
+          opacity: 0,
+          duration: 1,
+          ease: "power1.in",
+        }, 1);
+        
+        // First arrow resets to top and moves down to replace second arrow
+        tl.set(arrows[0], { y: -20, opacity: 1 }, 1);
+        tl.to(arrows[0], {
+          y: 0,
+          duration: 1,
+          ease: "power1.in",
+        }, 1);
+      }
     }, sectionRef);
 
     return () => {
@@ -182,22 +225,40 @@ const HeroDesktop = forwardRef(function Hero({ isPreloaderDone }, ref) {
                 ref={indicateRef}
                 className="hidden md:flex items-center gap-1 text-stone-700 w-fit"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-[clamp(14px,1vw,24px)] h-[clamp(14px,1vw,24px)] text-stone-700"
-                  aria-hidden="true"
-                >
-                  <path d="M12 5v14"></path>
-                  <path d="m19 12-7 7-7-7"></path>
-                </svg>
+                <div ref={arrowContainerRef} className="relative w-[clamp(14px,1vw,24px)] h-[clamp(14px,1vw,24px)] overflow-hidden">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="arrow-icon absolute top-0 left-0 w-full h-full text-stone-700"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14"></path>
+                    <path d="m19 12-7 7-7-7"></path>
+                  </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="arrow-icon absolute top-0 left-0 w-full h-full text-stone-700"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14"></path>
+                    <path d="m19 12-7 7-7-7"></path>
+                  </svg>
+                </div>
                 <span className="text-xl font-primary font-semibold tracking-tight">
                   Cool
                 </span>
