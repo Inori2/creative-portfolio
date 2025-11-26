@@ -89,10 +89,12 @@ export default function Process() {
               const childSplit = new SplitText(text, {
                 type: "lines",
                 linesClass: "line-child",
+                mask: "lines",
               });
               const parentSplit = new SplitText(text, {
                 type: "lines",
-                linesClass: "line-parent overflow-hidden",
+                linesClass: "line-parent",
+                mask: "lines",
               });
               splitInstances.push(childSplit, parentSplit);
               gsap.set(text, { autoAlpha: 1 });
@@ -110,17 +112,16 @@ export default function Process() {
               const split = new SplitText(text, {
                 type: "chars",
                 charsClass: "char-child",
+                mask: "chars",
               });
               splitInstances.push(split);
               gsap.set(text, { autoAlpha: 1 });
               textTl.fromTo(
                 split.chars,
-                { xPercent: 100, autoAlpha: 0 },
+                { xPercent: 100 },
                 {
                   xPercent: 0,
-                  autoAlpha: 1,
                   duration: 1,
-                  stagger: 0.02,
                   ease: "power3.out",
                 },
                 0
