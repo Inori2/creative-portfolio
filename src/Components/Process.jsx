@@ -240,7 +240,7 @@ export default function Process() {
                     <span className="process-title text-neutral-400 text-sm uppercase">
                       [{item.title}]
                     </span>
-                    <span className="process-title font-bold text-neutral-900 text-3xl">
+                    <span className="process-title font-bold text-neutral-900 text-2xl">
                       {item.titleText}
                     </span>
                   </div>
