@@ -82,7 +82,9 @@ const DistortedMaterial = new THREE.ShaderMaterial({
 export default function DistortedText() {
   const meshRef = useRef(null);
   const materialRef = useRef(null);
-  const { viewport, gl } = useThree();
+  const { viewport, gl, size } = useThree();
+  const isMobile = size.width < 768;
+  const fontSize = isMobile ? 4.3 : 4.5;
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
@@ -166,7 +168,7 @@ export default function DistortedText() {
           <PerspectiveCamera makeDefault position={[0, 0, 5]} />
           <color attach="background" args={["#0a0a0a"]} />
           <Text
-            fontSize={4.3}
+            fontSize={fontSize}
             color="#fafafa"
             font="/fonts/switzer/Switzer-Variable.ttf"
             fontWeight={"medium"}
