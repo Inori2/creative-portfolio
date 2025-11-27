@@ -95,14 +95,19 @@ export default function Footer() {
       ref={footerRef}
       className="bg-neutral-950 w-screen min-h-screen flex flex-col justify-between px-5 pb-5 pt-20 lg:pt-40 z-10 relative"
     >
-      {/* Headline */}
-      <div className="w-full flex justify-center items-center flex-grow">
-        <div className="w-full h-[20vw] relative">
+      {/* Headline Desktop */}
+      <div className="w-full flex justify-center items-center flex-grow hidden md:block">
+        <div className="w-full h-[20vw] overflow-visible relative">
           <Canvas>
             <ambientLight intensity={1} />
             <DistortedText />
           </Canvas>
         </div>
+      </div>
+
+      {/* Headline Mobile */}
+      <div className="w-full md:hidden flex justify-center items-center text-medium text-neutral-50 font-primary text-[14vw] pt-10 tracking-tight">
+        <span>Made by Sang</span>
       </div>
 
       {/* Links & Info */}

@@ -84,12 +84,12 @@ export default function DistortedText() {
   const materialRef = useRef(null);
   const { viewport, gl, size } = useThree();
   const isMobile = size.width < 768;
-  const fontSize = isMobile ? 4.3 : 4.5;
+  const fontSize = isMobile ? 3 : 3.7;
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   const [isTyping, setIsTyping] = useState(false);
-  const fullText = "Get in touch";
-  
+  const fullText = "Made by Sang";
+
   // Refs for physics
   const lastMouse = useRef(new THREE.Vector2(0.5, 0.5));
   const currentVelocity = useRef(new THREE.Vector2(0, 0));
@@ -107,7 +107,7 @@ export default function DistortedText() {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const typingObj = { value: 0 };
-      
+
       ScrollTrigger.create({
         trigger: gl.domElement,
         start: "top bottom-=100",
@@ -124,9 +124,9 @@ export default function DistortedText() {
             },
             onComplete: () => {
               setIsTyping(false);
-            }
+            },
           });
-        }
+        },
       });
     });
 
@@ -137,7 +137,9 @@ export default function DistortedText() {
     if (materialRef.current) {
       // Smoothly interpolate current velocity towards target (0)
       currentVelocity.current.lerp(targetVelocity.current, 0.1);
-      materialRef.current.uniforms.uVelocity.value.copy(currentVelocity.current);
+      materialRef.current.uniforms.uVelocity.value.copy(
+        currentVelocity.current
+      );
       targetVelocity.current.set(0, 0);
     }
   });
@@ -154,16 +156,9 @@ export default function DistortedText() {
   };
 
   return (
-    <mesh
-      ref={meshRef}
-      onPointerMove={handlePointerMove}
-    >
-      <planeGeometry args={[viewport.width, viewport.width / 4]} />
-      <shaderMaterial
-        ref={materialRef}
-        args={[DistortedMaterial]}
-        transparent
-      >
+    <mesh ref={meshRef} onPointerMove={handlePointerMove}>
+      <planeGeometry args={[viewport.width, viewport.width / 5]} />
+      <shaderMaterial ref={materialRef} args={[DistortedMaterial]} transparent>
         <RenderTexture attach="uniforms-uTexture-value">
           <PerspectiveCamera makeDefault position={[0, 0, 5]} />
           <color attach="background" args={["#0a0a0a"]} />
@@ -171,12 +166,13 @@ export default function DistortedText() {
             fontSize={fontSize}
             color="#fafafa"
             font="/fonts/switzer/Switzer-Variable.ttf"
-            fontWeight={"medium"}
+            fontWeight={"bold"}
             anchorX="center"
             anchorY="middle"
             letterSpacing={-0.03}
           >
-            {displayText}{isTyping && showCursor ? "_" : ""}
+            {displayText}
+            {isTyping && showCursor ? "|" : ""}
           </Text>
         </RenderTexture>
       </shaderMaterial>

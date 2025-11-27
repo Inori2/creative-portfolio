@@ -11,6 +11,7 @@ import Footer from "./Components/Footer";
 import Process from "./Components/Process";
 import PixelTransition from "./Components/PixelTransition";
 import ImageTransition from "./Components/ImageTransition";
+import CTA from "./Components/CTA";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -37,6 +38,7 @@ function App() {
         <Process />
         <Works />
         <ImageTransition />
+        <CTA />
         <PixelTransition />
         <Footer />
       </ReactLenis>
