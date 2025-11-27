@@ -205,7 +205,7 @@ export default function Process() {
     >
       <div
         ref={boxRef}
-        className="w-[35vw] h-[35vw] bg-neutral-50 flex overflow-hidden relative"
+        className="w-[35vw] h-[35vw] bg-stone-200 flex overflow-hidden relative"
       >
         {/* Scroll Container */}
         <div ref={scrollContainerRef} className="flex flex-row h-full w-max">

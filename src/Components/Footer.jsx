@@ -27,8 +27,10 @@ export default function Footer() {
 
         if (targets.length > 0) {
           // Create SplitText for each target to get characters
-          const splits = targets.map(target => new SplitText(target, { type: "chars" }));
-          const chars = splits.flatMap(split => split.chars);
+          const splits = targets.map(
+            (target) => new SplitText(target, { type: "chars" })
+          );
+          const chars = splits.flatMap((split) => split.chars);
 
           gsap.from(chars, {
             opacity: 0,
@@ -39,8 +41,8 @@ export default function Footer() {
             scrollTrigger: {
               trigger: footerRef.current,
               start: "top center",
-              toggleActions: "play none none reverse"
-            }
+              toggleActions: "play none none reverse",
+            },
           });
         }
       }, footerRef);
@@ -74,7 +76,10 @@ export default function Footer() {
     >
       <div className="overflow-hidden h-6 relative">
         <div className="link-text flex flex-col">
-          <span className="font-primary text-neutral-400 text-base leading-6" ref={addToLinksRef}>
+          <span
+            className="font-primary text-neutral-400 text-base leading-6"
+            ref={addToLinksRef}
+          >
             {label}
           </span>
           <span className="font-primary text-neutral-400 text-base leading-6">
@@ -86,7 +91,10 @@ export default function Footer() {
   );
 
   return (
-    <section ref={footerRef} className="bg-neutral-950 w-screen min-h-screen flex flex-col justify-between px-5 pb-5 pt-20 lg:pt-40">
+    <section
+      ref={footerRef}
+      className="bg-neutral-950 w-screen min-h-screen flex flex-col justify-between px-5 pb-5 pt-20 lg:pt-40 z-10 relative"
+    >
       {/* Headline */}
       <div className="w-full flex justify-center items-center flex-grow">
         <div className="w-full h-[20vw] relative">
@@ -101,7 +109,10 @@ export default function Footer() {
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-5 mt-20">
         {/* Social Column */}
         <div className="lg:col-start-5 lg:col-span-2 flex flex-col gap-4">
-          <h4 className="font-primary text-neutral-50 font-semibold mb-2" ref={addToLinksRef}>
+          <h4
+            className="font-primary text-neutral-50 font-semibold mb-2"
+            ref={addToLinksRef}
+          >
             Social
           </h4>
           <SocialLink href="#" label="Instagram" />
@@ -111,7 +122,10 @@ export default function Footer() {
 
         {/* Contact Column */}
         <div className="lg:col-start-9 lg:col-span-3 flex flex-col gap-4">
-          <h4 className="font-primary text-neutral-50 font-semibold mb-2" ref={addToLinksRef}>
+          <h4
+            className="font-primary text-neutral-50 font-semibold mb-2"
+            ref={addToLinksRef}
+          >
             Contact
           </h4>
           <SocialLink href="mailto:trannhatsang2000@gmail.com" label="Email" />

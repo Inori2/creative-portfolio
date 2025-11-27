@@ -10,6 +10,7 @@ import Works from "./Components/Works";
 import Footer from "./Components/Footer";
 import Process from "./Components/Process";
 import PixelTransition from "./Components/PixelTransition";
+import ImageTransition from "./Components/ImageTransition";
 
 function App() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
@@ -35,6 +36,7 @@ function App() {
         <Highlight />
         <Process />
         <Works />
+        <ImageTransition />
         <PixelTransition />
         <Footer />
       </ReactLenis>

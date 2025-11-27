@@ -66,7 +66,7 @@ export default function Works() {
   return (
     <section
       id="works"
-      className="flex flex-col justify-center items-center py-10 bg-neutral-50"
+      className="flex flex-col justify-center items-center py-10 bg-neutral-50 z-10 relative"
     >
       <div className="w-screen h-fit lg:px-5">
         {/* Heading */}
