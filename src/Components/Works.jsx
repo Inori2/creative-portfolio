@@ -109,6 +109,7 @@ export default function Works() {
         </div>
       </div>
       <Button
+        className="flex gap-4 items-center justify-center px-6 py-4 bg-neutral-50 rounded-full text-neutral-950 font-primary font-bold text-xl mix-blend-difference"
         Text="Let's shape what's next."
         Link=" &#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#97;&#110;&#110;&#104;&#97;&#116;&#115;&#97;&#110;&#103;&#50;&#48;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
       />

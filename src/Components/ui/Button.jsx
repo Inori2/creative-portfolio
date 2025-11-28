@@ -2,6 +2,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 export default function Button({
+  className = "",
   Link = "https://google.com",
   Text = "Button",
 }) {
@@ -101,7 +102,7 @@ export default function Button({
   return (
     <a
       ref={buttonRef}
-      className="flex gap-4 items-center justify-center px-6 py-5 bg-stone-950 rounded-full text-stone-50 font-primary font-bold text-xl"
+      className={className}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseDown={handleMouseClick}
@@ -119,7 +120,7 @@ export default function Button({
       {/* Circle with scale + fill animation */}
       <svg
         ref={svgWrapperRef}
-        className="h-3 w-3 overflow-visible"
+        className="h-3 w-3 overflow-visible mix-blend-difference"
         viewBox="0 0 12 12"
       >
         <circle

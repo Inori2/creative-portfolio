@@ -13,7 +13,7 @@ export default function TimezoneDisplay() {
         timeZone: "Etc/GMT-11",
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false,
+        hour12: true,
       });
 
       setTimeInfo({
@@ -32,7 +32,7 @@ export default function TimezoneDisplay() {
 
   return (
     <span className="font-primary text-base text-stone-400 font-semibold">
-      Melbourne, AU {hours}
+      Melborne, AU {hours}
       <span className="animate-blink">:</span>
       {minutes}
     </span>

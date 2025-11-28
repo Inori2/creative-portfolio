@@ -12,7 +12,7 @@ export default function ImageTransition() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(imageRef.current, {
-        y: "-5%",
+        y: "-10%",
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -28,12 +28,12 @@ export default function ImageTransition() {
 
   return (
     <section ref={containerRef} className="w-screen z-[-1] mt-[-100vh]">
-      <div className="h-[100vh] w-full"></div>
-      <div className="h-[100vh] w-full overflow-hidden sticky bottom-0">
+      <div className="h-screen w-full"></div>
+      <div className="h-screen w-full overflow-hidden sticky bottom-0">
         <img
           ref={imageRef}
           className="h-[120vh] w-full object-cover bottom-0"
-          style={{ transform: "translateY(5%)" }}
+          style={{ transform: "translateY(10%)" }}
           src={BgImage}
           alt="transition-image"
         />
