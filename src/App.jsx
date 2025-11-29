@@ -27,6 +27,21 @@ function App() {
     return () => gsap.ticker.remove(update);
   }, []);
 
+  // Force re-render on resize
+  const [, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>

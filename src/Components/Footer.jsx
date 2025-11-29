@@ -96,7 +96,7 @@ export default function Footer() {
       className="bg-neutral-950 w-screen min-h-screen flex flex-col justify-between px-5 pb-5 pt-20 lg:pt-40 z-10 relative"
     >
       {/* Headline Desktop */}
-      <div className="w-full flex justify-center items-center flex-grow hidden md:block">
+      <div className="w-full justify-center items-center grow hidden lg:block">
         <div className="w-full h-[20vw] overflow-visible relative">
           <Canvas>
             <ambientLight intensity={1} />
@@ -106,12 +106,16 @@ export default function Footer() {
       </div>
 
       {/* Headline Mobile */}
-      <div className="w-full md:hidden flex justify-center items-center text-medium text-neutral-50 font-primary text-[14vw] pt-10 tracking-tight">
+      <div className="w-full md:hidden flex justify-center items-center font-medium text-neutral-700 leading-20 font-primary text-[24vw] pt-10 tracking-tight">
         <span>Made by Sang</span>
       </div>
 
+      {/*Headline Tablet */}
+      <div className="w-full hidden md:block lg:hidden justify-center items-center font-medium leading-40 text-neutral-700 font-primary text-[25vw] pt-20 tracking-tight">
+        <span>Made by Sang</span>
+      </div>
       {/* Links & Info */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-5 mt-20">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-5 mt-20 text-2xl">
         {/* Social Column */}
         <div className="lg:col-start-5 lg:col-span-2 flex flex-col gap-4">
           <h4
@@ -144,10 +148,10 @@ export default function Footer() {
       <div className="w-full flex justify-between items-end mt-20 pt-5 border-t border-neutral-900">
         <div className="hidden lg:block w-1/3"></div>
         <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3 font-bold">
-          '{currentYear.toString().slice(-2)} ALL RIGHT RESERVED
+          '{currentYear.toString().slice(-2)} folio
         </span>
         <span className="font-primary text-neutral-600 text-sm uppercase tracking-wide lg:w-1/3 font-bold">
-          MADE BY SANG
+          Handcrafted with love
         </span>
       </div>
     </section>

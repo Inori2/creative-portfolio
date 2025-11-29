@@ -41,7 +41,7 @@ export default function CTA() {
       ref={sectionRef}
       className="CTA w-screen min-h-screen flex items-center justify-center bg-neutral-50 pt-20 p-5"
     >
-      <div className="CTA-container bg-neutral-950 w-[70vw] h-[65vh] flex flex-col items-center justify-center overflow-hidden">
+      <div className="CTA-container bg-neutral-950 h-[80vh] md:w-screen md:h-[80vh]  lg:w-[70vw] lg:h-[65vh] flex flex-col items-center justify-center overflow-hidden">
         <div className="top-container w-full h-full flex flex-col items-center justify-center gap-10">
           <div className="content w-full flex flex-col items-center justify-center gap-0">
             <span
@@ -68,7 +68,7 @@ export default function CTA() {
             Link="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#114;&#97;&#110;&#110;&#104;&#97;&#116;&#115;&#97;&#110;&#103;&#50;&#48;&#48;&#48;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
           />
         </div>
-        <div className="bot-container w-full h-full max-h-20 flex gap-0 text-base uppercase font-primary font-light text-neutral-50">
+        <div className="bot-container w-full h-fit md:max-h-20 flex flex-col md:flex-row gap-0 text-base uppercase font-primary font-light text-neutral-50">
           <div className="items border border-neutral-500 flex p-3 items-center justify-center w-full">
             web design
           </div>
