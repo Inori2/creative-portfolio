@@ -73,8 +73,8 @@ export default function Process() {
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top top",
-            end: isDesktop ? "+=200%" : "+=400%",
-            scrub: true,
+            end: isDesktop ? "+=150%" : "+=250%",
+            scrub: 0.5,
             pin: true,
           },
         });
